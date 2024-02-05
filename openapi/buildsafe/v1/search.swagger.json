@@ -330,6 +330,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "cpe": {
+          "type": "string"
         }
       },
       "title": "Package is the package definition"

@@ -526,6 +526,8 @@ func (m *Package) validate(all bool) error {
 
 	// no validation rules for EpochSeconds
 
+	// no validation rules for Cpe
+
 	if len(errors) > 0 {
 		return PackageMultiError(errors)
 	}
