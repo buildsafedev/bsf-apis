@@ -32,6 +32,11 @@ service SearchService {
   rpc FetchPackageVersion(FetchPackageVersionRequest) returns (FetchPackageVersionResponse) {
     option (google.api.http) = {get: "/v1/packages/{name=*}/{version=*}"};
   }
+
+  // FetchVulnerabilities returns a list of vulnerabilities for a package based on the name and version
+  rpc FetchVulnerabilities(FetchVulnerabilitiesRequest) returns (FetchVulnerabilitiesResponse) {
+    option (google.api.http) = {get: "/v1/packages/{name=*}/{version=*}/vulnerabilities"};
+  }
 }
 
 // FetchPackageRequest is the request message for FetchPackage.
@@ -85,4 +90,35 @@ message FetchPackageVersionRequest {
 // FetchPackageVersionResponse is the response message for FetchPackageVersion.
 message FetchPackageVersionResponse {
   Package package = 1;
+}
+
+// FetchVulnerabilitiesRequest is the request message for FetchVulnerabilities.
+message FetchVulnerabilitiesRequest {
+  string name = 1 [(buf.validate.field).required = true];
+  string version = 2 [(buf.validate.field).required = true];
+}
+
+// Vulnerability is the vulnerability definition
+message FetchVulnerabilitiesResponse {
+  repeated Vulnerability vulnerabilities = 1;
+}
+
+message Vulnerability {
+  string id = 1;
+  string severity = 2;
+  repeated Cvss cvss = 3;
+}
+
+message Cvss {
+  string vector = 1;
+  string version = 2;
+  string source = 3;
+  string type = 4;
+  Cvss3Metrics metrics = 5;
+}
+
+message Cvss3Metrics {
+  float base_score = 1;
+  float exploitability_score = 2;
+  float impact_score = 3;
 }

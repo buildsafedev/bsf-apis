@@ -840,3 +840,625 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = FetchPackageVersionResponseValidationError{}
+
+// Validate checks the field values on FetchVulnerabilitiesRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *FetchVulnerabilitiesRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FetchVulnerabilitiesRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// FetchVulnerabilitiesRequestMultiError, or nil if none found.
+func (m *FetchVulnerabilitiesRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FetchVulnerabilitiesRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for Version
+
+	if len(errors) > 0 {
+		return FetchVulnerabilitiesRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// FetchVulnerabilitiesRequestMultiError is an error wrapping multiple
+// validation errors returned by FetchVulnerabilitiesRequest.ValidateAll() if
+// the designated constraints aren't met.
+type FetchVulnerabilitiesRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FetchVulnerabilitiesRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FetchVulnerabilitiesRequestMultiError) AllErrors() []error { return m }
+
+// FetchVulnerabilitiesRequestValidationError is the validation error returned
+// by FetchVulnerabilitiesRequest.Validate if the designated constraints
+// aren't met.
+type FetchVulnerabilitiesRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchVulnerabilitiesRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchVulnerabilitiesRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchVulnerabilitiesRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchVulnerabilitiesRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchVulnerabilitiesRequestValidationError) ErrorName() string {
+	return "FetchVulnerabilitiesRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchVulnerabilitiesRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchVulnerabilitiesRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchVulnerabilitiesRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchVulnerabilitiesRequestValidationError{}
+
+// Validate checks the field values on FetchVulnerabilitiesResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *FetchVulnerabilitiesResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FetchVulnerabilitiesResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// FetchVulnerabilitiesResponseMultiError, or nil if none found.
+func (m *FetchVulnerabilitiesResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FetchVulnerabilitiesResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetVulnerabilities() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, FetchVulnerabilitiesResponseValidationError{
+						field:  fmt.Sprintf("Vulnerabilities[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, FetchVulnerabilitiesResponseValidationError{
+						field:  fmt.Sprintf("Vulnerabilities[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return FetchVulnerabilitiesResponseValidationError{
+					field:  fmt.Sprintf("Vulnerabilities[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return FetchVulnerabilitiesResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// FetchVulnerabilitiesResponseMultiError is an error wrapping multiple
+// validation errors returned by FetchVulnerabilitiesResponse.ValidateAll() if
+// the designated constraints aren't met.
+type FetchVulnerabilitiesResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FetchVulnerabilitiesResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FetchVulnerabilitiesResponseMultiError) AllErrors() []error { return m }
+
+// FetchVulnerabilitiesResponseValidationError is the validation error returned
+// by FetchVulnerabilitiesResponse.Validate if the designated constraints
+// aren't met.
+type FetchVulnerabilitiesResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FetchVulnerabilitiesResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FetchVulnerabilitiesResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FetchVulnerabilitiesResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FetchVulnerabilitiesResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FetchVulnerabilitiesResponseValidationError) ErrorName() string {
+	return "FetchVulnerabilitiesResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FetchVulnerabilitiesResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFetchVulnerabilitiesResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FetchVulnerabilitiesResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FetchVulnerabilitiesResponseValidationError{}
+
+// Validate checks the field values on Vulnerability with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Vulnerability) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Vulnerability with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in VulnerabilityMultiError, or
+// nil if none found.
+func (m *Vulnerability) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Vulnerability) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Severity
+
+	for idx, item := range m.GetCvss() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, VulnerabilityValidationError{
+						field:  fmt.Sprintf("Cvss[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, VulnerabilityValidationError{
+						field:  fmt.Sprintf("Cvss[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return VulnerabilityValidationError{
+					field:  fmt.Sprintf("Cvss[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return VulnerabilityMultiError(errors)
+	}
+
+	return nil
+}
+
+// VulnerabilityMultiError is an error wrapping multiple validation errors
+// returned by Vulnerability.ValidateAll() if the designated constraints
+// aren't met.
+type VulnerabilityMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VulnerabilityMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VulnerabilityMultiError) AllErrors() []error { return m }
+
+// VulnerabilityValidationError is the validation error returned by
+// Vulnerability.Validate if the designated constraints aren't met.
+type VulnerabilityValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VulnerabilityValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VulnerabilityValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VulnerabilityValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VulnerabilityValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VulnerabilityValidationError) ErrorName() string { return "VulnerabilityValidationError" }
+
+// Error satisfies the builtin error interface
+func (e VulnerabilityValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVulnerability.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VulnerabilityValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VulnerabilityValidationError{}
+
+// Validate checks the field values on Cvss with the rules defined in the proto
+// definition for this message. If any rules are violated, the first error
+// encountered is returned, or nil if there are no violations.
+func (m *Cvss) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Cvss with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in CvssMultiError, or nil if none found.
+func (m *Cvss) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Cvss) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Vector
+
+	// no validation rules for Version
+
+	// no validation rules for Source
+
+	// no validation rules for Type
+
+	if all {
+		switch v := interface{}(m.GetMetrics()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, CvssValidationError{
+					field:  "Metrics",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, CvssValidationError{
+					field:  "Metrics",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMetrics()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return CvssValidationError{
+				field:  "Metrics",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return CvssMultiError(errors)
+	}
+
+	return nil
+}
+
+// CvssMultiError is an error wrapping multiple validation errors returned by
+// Cvss.ValidateAll() if the designated constraints aren't met.
+type CvssMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CvssMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CvssMultiError) AllErrors() []error { return m }
+
+// CvssValidationError is the validation error returned by Cvss.Validate if the
+// designated constraints aren't met.
+type CvssValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CvssValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CvssValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CvssValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CvssValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CvssValidationError) ErrorName() string { return "CvssValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CvssValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCvss.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CvssValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CvssValidationError{}
+
+// Validate checks the field values on Cvss3Metrics with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Cvss3Metrics) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Cvss3Metrics with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in Cvss3MetricsMultiError, or
+// nil if none found.
+func (m *Cvss3Metrics) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Cvss3Metrics) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for BaseScore
+
+	// no validation rules for ExploitabilityScore
+
+	// no validation rules for ImpactScore
+
+	if len(errors) > 0 {
+		return Cvss3MetricsMultiError(errors)
+	}
+
+	return nil
+}
+
+// Cvss3MetricsMultiError is an error wrapping multiple validation errors
+// returned by Cvss3Metrics.ValidateAll() if the designated constraints aren't met.
+type Cvss3MetricsMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m Cvss3MetricsMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m Cvss3MetricsMultiError) AllErrors() []error { return m }
+
+// Cvss3MetricsValidationError is the validation error returned by
+// Cvss3Metrics.Validate if the designated constraints aren't met.
+type Cvss3MetricsValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e Cvss3MetricsValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e Cvss3MetricsValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e Cvss3MetricsValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e Cvss3MetricsValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e Cvss3MetricsValidationError) ErrorName() string { return "Cvss3MetricsValidationError" }
+
+// Error satisfies the builtin error interface
+func (e Cvss3MetricsValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCvss3Metrics.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = Cvss3MetricsValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = Cvss3MetricsValidationError{}

@@ -28,6 +28,8 @@ type SearchServiceClient interface {
 	FetchPackages(ctx context.Context, in *FetchPackagesRequest, opts ...grpc.CallOption) (*FetchPackagesResponse, error)
 	// FetchPackageVersion returns a package based on the name and version
 	FetchPackageVersion(ctx context.Context, in *FetchPackageVersionRequest, opts ...grpc.CallOption) (*FetchPackageVersionResponse, error)
+	// FetchVulnerabilities returns a list of vulnerabilities for a package based on the name and version
+	FetchVulnerabilities(ctx context.Context, in *FetchVulnerabilitiesRequest, opts ...grpc.CallOption) (*FetchVulnerabilitiesResponse, error)
 }
 
 type searchServiceClient struct {
@@ -65,6 +67,15 @@ func (c *searchServiceClient) FetchPackageVersion(ctx context.Context, in *Fetch
 	return out, nil
 }
 
+func (c *searchServiceClient) FetchVulnerabilities(ctx context.Context, in *FetchVulnerabilitiesRequest, opts ...grpc.CallOption) (*FetchVulnerabilitiesResponse, error) {
+	out := new(FetchVulnerabilitiesResponse)
+	err := c.cc.Invoke(ctx, "/buildsafe.v1.SearchService/FetchVulnerabilities", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SearchServiceServer is the server API for SearchService service.
 // All implementations must embed UnimplementedSearchServiceServer
 // for forward compatibility
@@ -75,6 +86,8 @@ type SearchServiceServer interface {
 	FetchPackages(context.Context, *FetchPackagesRequest) (*FetchPackagesResponse, error)
 	// FetchPackageVersion returns a package based on the name and version
 	FetchPackageVersion(context.Context, *FetchPackageVersionRequest) (*FetchPackageVersionResponse, error)
+	// FetchVulnerabilities returns a list of vulnerabilities for a package based on the name and version
+	FetchVulnerabilities(context.Context, *FetchVulnerabilitiesRequest) (*FetchVulnerabilitiesResponse, error)
 	mustEmbedUnimplementedSearchServiceServer()
 }
 
@@ -90,6 +103,9 @@ func (UnimplementedSearchServiceServer) FetchPackages(context.Context, *FetchPac
 }
 func (UnimplementedSearchServiceServer) FetchPackageVersion(context.Context, *FetchPackageVersionRequest) (*FetchPackageVersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FetchPackageVersion not implemented")
+}
+func (UnimplementedSearchServiceServer) FetchVulnerabilities(context.Context, *FetchVulnerabilitiesRequest) (*FetchVulnerabilitiesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FetchVulnerabilities not implemented")
 }
 func (UnimplementedSearchServiceServer) mustEmbedUnimplementedSearchServiceServer() {}
 
@@ -158,6 +174,24 @@ func _SearchService_FetchPackageVersion_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SearchService_FetchVulnerabilities_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FetchVulnerabilitiesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SearchServiceServer).FetchVulnerabilities(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildsafe.v1.SearchService/FetchVulnerabilities",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SearchServiceServer).FetchVulnerabilities(ctx, req.(*FetchVulnerabilitiesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SearchService_ServiceDesc is the grpc.ServiceDesc for SearchService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +210,10 @@ var SearchService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FetchPackageVersion",
 			Handler:    _SearchService_FetchPackageVersion_Handler,
+		},
+		{
+			MethodName: "FetchVulnerabilities",
+			Handler:    _SearchService_FetchVulnerabilities_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
