@@ -333,6 +333,9 @@
         },
         "cpe": {
           "type": "string"
+        },
+        "attr_name": {
+          "type": "string"
         }
       },
       "title": "Package is the package definition"

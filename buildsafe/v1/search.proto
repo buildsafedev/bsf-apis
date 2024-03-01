@@ -80,6 +80,7 @@ message Package {
   uint64 epoch_seconds = 8;
   repeated string platforms = 9;
   string cpe = 10;
+  string attr_name = 11;
 }
 
 // FetchPackageVersionRequest is the request message for FetchPackageVersion.

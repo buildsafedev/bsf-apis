@@ -528,6 +528,8 @@ func (m *Package) validate(all bool) error {
 
 	// no validation rules for Cpe
 
+	// no validation rules for AttrName
+
 	if len(errors) > 0 {
 		return PackageMultiError(errors)
 	}
