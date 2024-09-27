@@ -1,0 +1,40 @@
+// (-- api-linter: core::0191::java-package=disabled
+// (-- api-linter: core::0191::java-outer-classname=disabled
+// (-- api-linter: core::0191::java-multiple-files=disabled
+//     aip.dev/not-precedent: We're doing This as this is a Go server --)
+// (-- api-linter: core::0191::proto-package=disabled
+
+syntax = "proto3";
+
+package buildsafe.v1;
+
+import "buf/validate/validate.proto";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/buildsafedev/bsf-apis;bsfv1";
+
+// AuthService defines the methods for authenticating users
+service AuthService {
+  // Authenticate a user with an OAuth provider token
+  rpc OAuthAuthenticate(OAuthAuthenticateRequest) returns (OAuthAuthenticateResponse) {
+    option (google.api.http) = {
+      post: "/v1/users/oauth/authenticate",
+      body: "*"
+    };
+  }
+}
+
+// OAuthAuthenticateRequest is the request message for OAuthAuthenticate.
+message OAuthAuthenticateRequest {
+  Provider provider = 1; // e.g., "google", "github"
+}
+
+// Response message for OAuth-based authentication
+message OAuthAuthenticateResponse {
+  string user_id = 1; // The ID of the authenticated or created user
+}
+
+enum Provider {
+  PROVIDER_UNSPECIFIED = 0;
+  PROVIDER_GITHUB = 1;
+}

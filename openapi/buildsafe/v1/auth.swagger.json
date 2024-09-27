@@ -1,0 +1,111 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "buildsafe/v1/auth.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "AuthService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/users/oauth/authenticate": {
+      "post": {
+        "summary": "Authenticate a user with an OAuth provider token",
+        "operationId": "AuthService_OAuthAuthenticate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1OAuthAuthenticateResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "OAuthAuthenticateRequest is the request message for OAuthAuthenticate.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1OAuthAuthenticateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1OAuthAuthenticateRequest": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "$ref": "#/definitions/v1Provider",
+          "title": "e.g., \"google\", \"github\""
+        }
+      },
+      "description": "OAuthAuthenticateRequest is the request message for OAuthAuthenticate."
+    },
+    "v1OAuthAuthenticateResponse": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "title": "The ID of the authenticated or created user"
+        }
+      },
+      "title": "Response message for OAuth-based authentication"
+    },
+    "v1Provider": {
+      "type": "string",
+      "enum": [
+        "PROVIDER_UNSPECIFIED",
+        "PROVIDER_GITHUB"
+      ],
+      "default": "PROVIDER_UNSPECIFIED"
+    }
+  }
+}

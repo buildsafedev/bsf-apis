@@ -7,6 +7,5 @@ packages {
 gomodule {
   name       = "bsf-apis"
   src        = "../."
-  vendorHash = ""
   doCheck    = false
 }
