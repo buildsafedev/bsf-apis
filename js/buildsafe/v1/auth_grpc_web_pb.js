@@ -15,23 +15,17 @@
 // @ts-nocheck
 
 
-goog.provide('proto.buildsafe.v1.AuthServiceClient');
-goog.provide('proto.buildsafe.v1.AuthServicePromiseClient');
 
-goog.require('grpc.web.MethodDescriptor');
-goog.require('grpc.web.MethodType');
-goog.require('grpc.web.GrpcWebClientBase');
-goog.require('grpc.web.AbstractClientBase');
-goog.require('grpc.web.ClientReadableStream');
-goog.require('grpc.web.RpcError');
-goog.require('proto.buildsafe.v1.OAuthAuthenticateRequest');
-goog.require('proto.buildsafe.v1.OAuthAuthenticateResponse');
-
-goog.requireType('grpc.web.ClientOptions');
+const grpc = {};
+grpc.web = require('grpc-web');
 
 
+var buf_validate_validate_pb = require('../../buf/validate/validate_pb.js')
 
-goog.scope(function() {
+var google_api_annotations_pb = require('../../google/api/annotations_pb.js')
+const proto = {};
+proto.buildsafe = {};
+proto.buildsafe.v1 = require('./auth_pb.js');
 
 /**
  * @param {string} hostname
@@ -146,5 +140,5 @@ proto.buildsafe.v1.AuthServicePromiseClient.prototype.oAuthAuthenticate =
 };
 
 
-}); // goog.scope
+module.exports = proto.buildsafe.v1;
 

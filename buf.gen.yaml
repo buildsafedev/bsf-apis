@@ -19,7 +19,8 @@ plugins:
   
   - plugin: buf.build/grpc/web:v1.5.0
     out: js 
-    opt: mode=grpcweb  # or grpcwebtext (depending on your requirement)
+    opt: mode=grpcweb,import_style=commonjs  # or grpcwebtext (depending on your requirement)
   # dependencies
   - plugin: buf.build/protocolbuffers/js:v3.21.2
     out: js
+    opt: import_style=commonjs
