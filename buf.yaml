@@ -4,6 +4,8 @@ deps:
   - buf.build/grpc-ecosystem/grpc-gateway
   - buf.build/googleapis/googleapis
   - buf.build/bufbuild/protovalidate
+  # - buf.build/grpc/web
+  # - buf.build/protocolbuffers/js
 breaking:
   use:
     - FILE
