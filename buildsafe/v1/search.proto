@@ -81,6 +81,15 @@ message Package {
   repeated string platforms = 9;
   string cpe = 10;
   string attr_name = 11;
+  Maintainer maintainer = 12;
+}
+
+message Maintainer {
+  string email = 1;
+  string github = 2;
+  string github_id = 3;
+  repeated string keys = 4;
+  string name = 5;
 }
 
 // FetchPackageVersionRequest is the request message for FetchPackageVersion.
