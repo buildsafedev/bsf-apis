@@ -530,6 +530,35 @@ func (m *Package) validate(all bool) error {
 
 	// no validation rules for AttrName
 
+	if all {
+		switch v := interface{}(m.GetMaintainer()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PackageValidationError{
+					field:  "Maintainer",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PackageValidationError{
+					field:  "Maintainer",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMaintainer()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PackageValidationError{
+				field:  "Maintainer",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return PackageMultiError(errors)
 	}
@@ -606,6 +635,113 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PackageValidationError{}
+
+// Validate checks the field values on Maintainer with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Maintainer) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Maintainer with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MaintainerMultiError, or
+// nil if none found.
+func (m *Maintainer) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Maintainer) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Email
+
+	// no validation rules for Github
+
+	// no validation rules for GithubId
+
+	// no validation rules for Name
+
+	if len(errors) > 0 {
+		return MaintainerMultiError(errors)
+	}
+
+	return nil
+}
+
+// MaintainerMultiError is an error wrapping multiple validation errors
+// returned by Maintainer.ValidateAll() if the designated constraints aren't met.
+type MaintainerMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MaintainerMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MaintainerMultiError) AllErrors() []error { return m }
+
+// MaintainerValidationError is the validation error returned by
+// Maintainer.Validate if the designated constraints aren't met.
+type MaintainerValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MaintainerValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MaintainerValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MaintainerValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MaintainerValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MaintainerValidationError) ErrorName() string { return "MaintainerValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MaintainerValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMaintainer.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MaintainerValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MaintainerValidationError{}
 
 // Validate checks the field values on FetchPackageVersionRequest with the
 // rules defined in the proto definition for this message. If any rules are
