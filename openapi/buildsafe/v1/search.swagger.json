@@ -184,6 +184,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -241,6 +242,7 @@
         "packages": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1Package"
           }
         }
@@ -253,6 +255,7 @@
         "vulnerabilities": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1Vulnerability"
           }
         }
@@ -297,6 +300,29 @@
       },
       "description": "ListPackagesResponse is the response message for ListPackages."
     },
+    "v1Maintainer": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "github": {
+          "type": "string"
+        },
+        "github_id": {
+          "type": "string"
+        },
+        "keys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
     "v1Package": {
       "type": "object",
       "properties": {
@@ -336,6 +362,9 @@
         },
         "attr_name": {
           "type": "string"
+        },
+        "maintainer": {
+          "$ref": "#/definitions/v1Maintainer"
         }
       },
       "title": "Package is the package definition"
@@ -352,6 +381,7 @@
         "cvss": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1Cvss"
           }
         }
