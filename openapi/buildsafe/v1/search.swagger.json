@@ -121,6 +121,45 @@
         ]
       }
     },
+    "/v1/packages/{name}/{version}/maintainers": {
+      "get": {
+        "summary": "FetchMaintainersInfo returns the maintainer information for a package",
+        "operationId": "SearchService_FetchMaintainersInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1Maintainer"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "[^/]+"
+          }
+        ],
+        "tags": [
+          "SearchService"
+        ]
+      }
+    },
     "/v1/packages/{name}/{version}/vulnerabilities": {
       "get": {
         "summary": "FetchVulnerabilities returns a list of vulnerabilities for a package based on the name and version",
@@ -363,8 +402,8 @@
         "attr_name": {
           "type": "string"
         },
-        "maintainer": {
-          "$ref": "#/definitions/v1Maintainer"
+        "maintainer_name": {
+          "type": "string"
         }
       },
       "title": "Package is the package definition"

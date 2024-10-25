@@ -29,6 +29,7 @@ const (
 	SearchService_FetchPackages_FullMethodName        = "/buildsafe.v1.SearchService/FetchPackages"
 	SearchService_FetchPackageVersion_FullMethodName  = "/buildsafe.v1.SearchService/FetchPackageVersion"
 	SearchService_FetchVulnerabilities_FullMethodName = "/buildsafe.v1.SearchService/FetchVulnerabilities"
+	SearchService_FetchMaintainersInfo_FullMethodName = "/buildsafe.v1.SearchService/FetchMaintainersInfo"
 )
 
 // SearchServiceClient is the client API for SearchService service.
@@ -45,6 +46,8 @@ type SearchServiceClient interface {
 	FetchPackageVersion(ctx context.Context, in *FetchPackageVersionRequest, opts ...grpc.CallOption) (*FetchPackageVersionResponse, error)
 	// FetchVulnerabilities returns a list of vulnerabilities for a package based on the name and version
 	FetchVulnerabilities(ctx context.Context, in *FetchVulnerabilitiesRequest, opts ...grpc.CallOption) (*FetchVulnerabilitiesResponse, error)
+	// FetchMaintainersInfo returns the maintainer information for a package
+	FetchMaintainersInfo(ctx context.Context, in *FetchMaintainersInfoRequest, opts ...grpc.CallOption) (*Maintainer, error)
 }
 
 type searchServiceClient struct {
@@ -95,6 +98,16 @@ func (c *searchServiceClient) FetchVulnerabilities(ctx context.Context, in *Fetc
 	return out, nil
 }
 
+func (c *searchServiceClient) FetchMaintainersInfo(ctx context.Context, in *FetchMaintainersInfoRequest, opts ...grpc.CallOption) (*Maintainer, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Maintainer)
+	err := c.cc.Invoke(ctx, SearchService_FetchMaintainersInfo_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SearchServiceServer is the server API for SearchService service.
 // All implementations must embed UnimplementedSearchServiceServer
 // for forward compatibility.
@@ -109,6 +122,8 @@ type SearchServiceServer interface {
 	FetchPackageVersion(context.Context, *FetchPackageVersionRequest) (*FetchPackageVersionResponse, error)
 	// FetchVulnerabilities returns a list of vulnerabilities for a package based on the name and version
 	FetchVulnerabilities(context.Context, *FetchVulnerabilitiesRequest) (*FetchVulnerabilitiesResponse, error)
+	// FetchMaintainersInfo returns the maintainer information for a package
+	FetchMaintainersInfo(context.Context, *FetchMaintainersInfoRequest) (*Maintainer, error)
 	mustEmbedUnimplementedSearchServiceServer()
 }
 
@@ -130,6 +145,9 @@ func (UnimplementedSearchServiceServer) FetchPackageVersion(context.Context, *Fe
 }
 func (UnimplementedSearchServiceServer) FetchVulnerabilities(context.Context, *FetchVulnerabilitiesRequest) (*FetchVulnerabilitiesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FetchVulnerabilities not implemented")
+}
+func (UnimplementedSearchServiceServer) FetchMaintainersInfo(context.Context, *FetchMaintainersInfoRequest) (*Maintainer, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FetchMaintainersInfo not implemented")
 }
 func (UnimplementedSearchServiceServer) mustEmbedUnimplementedSearchServiceServer() {}
 func (UnimplementedSearchServiceServer) testEmbeddedByValue()                       {}
@@ -224,6 +242,24 @@ func _SearchService_FetchVulnerabilities_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SearchService_FetchMaintainersInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FetchMaintainersInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SearchServiceServer).FetchMaintainersInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SearchService_FetchMaintainersInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SearchServiceServer).FetchMaintainersInfo(ctx, req.(*FetchMaintainersInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SearchService_ServiceDesc is the grpc.ServiceDesc for SearchService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -246,6 +282,10 @@ var SearchService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FetchVulnerabilities",
 			Handler:    _SearchService_FetchVulnerabilities_Handler,
+		},
+		{
+			MethodName: "FetchMaintainersInfo",
+			Handler:    _SearchService_FetchMaintainersInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
