@@ -37,6 +37,11 @@ service SearchService {
   rpc FetchVulnerabilities(FetchVulnerabilitiesRequest) returns (FetchVulnerabilitiesResponse) {
     option (google.api.http) = {get: "/v1/packages/{name=*}/{version=*}/vulnerabilities"};
   }
+
+  // FetchMaintainersInfo returns the maintainer information for a package
+  rpc FetchMaintainersInfo(FetchMaintainersInfoRequest) returns (Maintainer) {
+    option (google.api.http) = {get: "/v1/packages/{name=*}/{version=*}/maintainers"};
+  }
 }
 
 // FetchPackageRequest is the request message for FetchPackage.
@@ -47,6 +52,12 @@ message FetchPackagesRequest {
 // FetchPackageResponse is the response message for FetchPackage.
 message FetchPackagesResponse {
   repeated Package packages = 1;
+}
+
+// FetchMaintainersInfoRequest is the request message for FetchMaintainersInfo.
+message FetchMaintainersInfoRequest {
+  string name = 1;
+  string version = 2;
 }
 
 // ListPackagesRequest is the request message for ListPackages.
@@ -81,7 +92,7 @@ message Package {
   repeated string platforms = 9;
   string cpe = 10;
   string attr_name = 11;
-  Maintainer maintainer = 12;
+  string maintainer_name  = 12;
 }
 
 message Maintainer {

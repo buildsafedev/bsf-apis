@@ -323,5 +323,66 @@ proto.buildsafe.v1.SearchServicePromiseClient.prototype.fetchVulnerabilities =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.buildsafe.v1.FetchMaintainersInfoRequest,
+ *   !proto.buildsafe.v1.Maintainer>}
+ */
+const methodDescriptor_SearchService_FetchMaintainersInfo = new grpc.web.MethodDescriptor(
+  '/buildsafe.v1.SearchService/FetchMaintainersInfo',
+  grpc.web.MethodType.UNARY,
+  proto.buildsafe.v1.FetchMaintainersInfoRequest,
+  proto.buildsafe.v1.Maintainer,
+  /**
+   * @param {!proto.buildsafe.v1.FetchMaintainersInfoRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.buildsafe.v1.Maintainer.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.buildsafe.v1.FetchMaintainersInfoRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.buildsafe.v1.Maintainer)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.buildsafe.v1.Maintainer>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.buildsafe.v1.SearchServiceClient.prototype.fetchMaintainersInfo =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/buildsafe.v1.SearchService/FetchMaintainersInfo',
+      request,
+      metadata || {},
+      methodDescriptor_SearchService_FetchMaintainersInfo,
+      callback);
+};
+
+
+/**
+ * @param {!proto.buildsafe.v1.FetchMaintainersInfoRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.buildsafe.v1.Maintainer>}
+ *     Promise that resolves to the response
+ */
+proto.buildsafe.v1.SearchServicePromiseClient.prototype.fetchMaintainersInfo =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/buildsafe.v1.SearchService/FetchMaintainersInfo',
+      request,
+      metadata || {},
+      methodDescriptor_SearchService_FetchMaintainersInfo);
+};
+
+
 module.exports = proto.buildsafe.v1;
 
