@@ -14,7 +14,7 @@ import "google/api/annotations.proto";
 option go_package = "github.com/buildsafedev/bsf-apis;bsfv1";
 
 service ProjectService {
-  rpc CreateProject(CreateProjectRequest) returns () {
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {
     option (google.api.http) = {
       post: "/v1/project"
       body: "*"
@@ -23,51 +23,69 @@ service ProjectService {
 
   rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {
     option (google.api.http) = {
-      get: "/v1/project/{id=*}"
+      get: "/v1/project/{project_id=*}"
     };
   }
 
   rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{userid=*}"
+      get: "/v1/projects/{user_id=*}"
     };
   }
 
-  rpc UpdateProject(UpdateProjectRequest) returns () {
+  rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse) {
     option (google.api.http) = {
-      patch: "/v1/project/{id=*}"
+      patch: "/v1/project/{project_id=*}"
       body: "*"
     };
   }
 
-  rpc DeleteProject(DeleteProjectRequest) returns () {
+  rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse) {
     option (google.api.http) = {
-      delete: "/v1/projects/{id=*}"
+      delete: "/v1/projects/{project_id=*}"
     };
   }
 }
 
-
 message Project {
-  int projectID = 1 [(buf.validate.field) = {min: 1, max: 1000000}];
-  int userID = 2 [(buf.validate.field) = {min: 1, max: 1000000}];
-  string projectName = 3 [(buf.validate.field) = {min: 1, max: 255}];
+  int64 project_id = 1 [(buf.validate.field).int64 = {
+    gt: 0,
+    lt: 1000000
+  }, (buf.validate.field).required = true];
+  
+  int64 user_id = 2 [(buf.validate.field).int64 = {
+    gt: 0,
+    lt: 1000000
+  }, (buf.validate.field).required = true];
+  
+  string project_name = 3 [(buf.validate.field).string = {
+    min_len: 1,
+    max_len: 255
+  }, (buf.validate.field).required = true];
 }
 
 message CreateProjectRequest {
   Project project = 1;
 }
 
+message CreateProjectResponse {}
+
+message GetProjectRequest {
+  int64 project_id = 1 [(buf.validate.field).int64 = {
+    gt: 0,
+    lt: 1000000
+  }, (buf.validate.field).required = true];
+}
+
 message GetProjectResponse {
   Project project = 1;
 }
 
-message GetProjectRequest {
-  int projectID = 1 [(buf.validate.field) = {min: 1, max: 1000000}];
-}
-
 message ListProjectsRequest {
-  int userID = 1 [(buf.validate.field) = {min: 1, max: 1000000}];
+  int64 user_id = 1 [(buf.validate.field).int64 = {
+    gt: 0,
+    lt: 1000000
+  }, (buf.validate.field).required = true];
 }
 
 message ListProjectsResponse {
@@ -78,6 +96,13 @@ message UpdateProjectRequest {
   Project project = 1;
 }
 
+message UpdateProjectResponse {}
+
 message DeleteProjectRequest {
-  int projectID = 1 [(buf.validate.field) = {min: 1, max: 1000000}];
+  int64 project_id = 1 [(buf.validate.field).int64 = {
+    gt: 0,
+    lt: 1000000
+  }, (buf.validate.field).required = true];
 }
+
+message DeleteProjectResponse {}
