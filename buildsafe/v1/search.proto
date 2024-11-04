@@ -10,6 +10,8 @@ package buildsafe.v1;
 
 import "buf/validate/validate.proto";
 import "google/api/annotations.proto";
+import "google/api/http.proto";
+import "google/api/httpbody.proto";
 
 option go_package = "github.com/buildsafedev/bsf-apis;bsfv1";
 
@@ -38,8 +40,7 @@ service SearchService {
     option (google.api.http) = {get: "/v1/packages/{name=*}/{version=*}/vulnerabilities"};
   }
 
-  // FetchMaintainersInfo returns the maintainer information for a package
-  rpc FetchMaintainersInfo(FetchMaintainersInfoRequest) returns (Maintainer) {
+  rpc FetchMaintainersInfo(FetchMaintainersInfoRequest) returns (google.api.HttpBody) {
     option (google.api.http) = {get: "/v1/packages/{name=*}/{version=*}/maintainers"};
   }
 }
