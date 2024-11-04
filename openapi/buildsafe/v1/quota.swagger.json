@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "buildsafe/v1/auth.proto",
+    "title": "buildsafe/v1/quota.proto",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "AuthService"
+      "name": "QuotaService"
     }
   ],
   "consumes": [
@@ -16,15 +16,14 @@
     "application/json"
   ],
   "paths": {
-    "/v1/users/oauth/authenticate": {
+    "/v1/quotas/projects/{project_id}/view": {
       "post": {
-        "summary": "Authenticate a user with an OAuth provider token",
-        "operationId": "AuthService_OAuthAuthenticate",
+        "operationId": "QuotaService_ViewQuota",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1OAuthAuthenticateResponse"
+              "$ref": "#/definitions/v1ViewQuotaResponse"
             }
           },
           "default": {
@@ -36,17 +35,24 @@
         },
         "parameters": [
           {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
             "name": "body",
-            "description": "OAuthAuthenticateRequest is the request message for OAuthAuthenticate.",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1OAuthAuthenticateRequest"
+              "type": "object",
+              "description": "ViewQuotaRequest is the request message for viewing Quota on ViewQuota."
             }
           }
         ],
         "tags": [
-          "AuthService"
+          "QuotaService"
         ]
       }
     }
@@ -79,33 +85,19 @@
         }
       }
     },
-    "v1OAuthAuthenticateRequest": {
+    "v1ViewQuotaResponse": {
       "type": "object",
       "properties": {
-        "provider": {
-          "$ref": "#/definitions/v1Provider",
-          "title": "e.g., \"google\", \"github\""
-        }
-      },
-      "description": "OAuthAuthenticateRequest is the request message for OAuthAuthenticate."
-    },
-    "v1OAuthAuthenticateResponse": {
-      "type": "object",
-      "properties": {
-        "user_id": {
+        "pull_requests_count": {
           "type": "string",
-          "title": "The ID of the authenticated or created user"
+          "format": "int64"
+        },
+        "pull_requests_limit": {
+          "type": "string",
+          "format": "int64"
         }
       },
-      "title": "Response message for OAuth-based authentication"
-    },
-    "v1Provider": {
-      "type": "string",
-      "enum": [
-        "PROVIDER_UNSPECIFIED",
-        "PROVIDER_GITHUB"
-      ],
-      "default": "PROVIDER_UNSPECIFIED"
+      "description": "ViewQuotaResponse  is a message for the response of ViewQuota."
     }
   }
 }

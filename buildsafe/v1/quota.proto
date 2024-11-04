@@ -1,0 +1,35 @@
+// (-- api-linter: core::0191::java-package=disabled
+// (-- api-linter: core::0191::java-outer-classname=disabled
+// (-- api-linter: core::0191::java-multiple-files=disabled
+//     aip.dev/not-precedent: We're doing This as this is a Go server --)
+// (-- api-linter: core::0191::proto-package=disabled
+
+syntax = "proto3";
+
+package buildsafe.v1;
+
+import "buf/validate/validate.proto";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/buildsafedev/bsf-apis;bsfv1";
+
+// QuotaService defines the methods for quota management
+service QuotaService {
+  rpc ViewQuota(ViewQuotaRequest) returns (ViewQuotaResponse) {
+    option (google.api.http) = {
+      post: "/v1/quotas/projects/{project_id}/view",
+      body: "*"
+    };
+  }
+}
+
+// ViewQuotaRequest is the request message for viewing Quota on ViewQuota.
+message ViewQuotaRequest {
+  int64 project_id = 1;
+}
+
+// ViewQuotaResponse  is a message for the response of ViewQuota.
+message ViewQuotaResponse {
+  int64 pull_requests_count = 1;
+  int64 pull_requests_limit = 2;
+}
