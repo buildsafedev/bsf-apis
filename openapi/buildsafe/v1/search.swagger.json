@@ -223,7 +223,6 @@
         "details": {
           "type": "array",
           "items": {
-            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -281,7 +280,6 @@
         "packages": {
           "type": "array",
           "items": {
-            "type": "object",
             "$ref": "#/definitions/v1Package"
           }
         }
@@ -294,7 +292,6 @@
         "vulnerabilities": {
           "type": "array",
           "items": {
-            "type": "object",
             "$ref": "#/definitions/v1Vulnerability"
           }
         }
@@ -420,7 +417,6 @@
         "cvss": {
           "type": "array",
           "items": {
-            "type": "object",
             "$ref": "#/definitions/v1Cvss"
           }
         }
