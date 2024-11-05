@@ -91,7 +91,7 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "format": "int64",
+            "format": "uint64",
             "pattern": "[^/]+"
           }
         ],
@@ -121,7 +121,7 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "format": "int64",
+            "format": "uint64",
             "pattern": "[^/]+"
           }
         ],
@@ -151,7 +151,7 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "format": "int64",
+            "format": "uint64",
             "pattern": "[^/]+"
           },
           {
@@ -219,7 +219,7 @@
       "properties": {
         "project_id": {
           "type": "string",
-          "format": "int64"
+          "format": "uint64"
         }
       }
     },
@@ -251,7 +251,7 @@
       "properties": {
         "project_id": {
           "type": "string",
-          "format": "int64"
+          "format": "uint64"
         },
         "project_name": {
           "type": "string"

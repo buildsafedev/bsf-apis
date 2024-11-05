@@ -467,7 +467,7 @@ proto.buildsafe.v1.CreateProjectResponse.deserializeBinaryFromReader = function(
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setProjectId(value);
       break;
     default:
@@ -501,7 +501,7 @@ proto.buildsafe.v1.CreateProjectResponse.serializeBinaryToWriter = function(mess
   var f = undefined;
   f = message.getProjectId();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -510,7 +510,7 @@ proto.buildsafe.v1.CreateProjectResponse.serializeBinaryToWriter = function(mess
 
 
 /**
- * optional int64 project_id = 1;
+ * optional uint64 project_id = 1;
  * @return {number}
  */
 proto.buildsafe.v1.CreateProjectResponse.prototype.getProjectId = function() {
@@ -597,7 +597,7 @@ proto.buildsafe.v1.GetProjectRequest.deserializeBinaryFromReader = function(msg,
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setProjectId(value);
       break;
     default:
@@ -631,7 +631,7 @@ proto.buildsafe.v1.GetProjectRequest.serializeBinaryToWriter = function(message,
   var f = undefined;
   f = message.getProjectId();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -640,7 +640,7 @@ proto.buildsafe.v1.GetProjectRequest.serializeBinaryToWriter = function(message,
 
 
 /**
- * optional int64 project_id = 1;
+ * optional uint64 project_id = 1;
  * @return {number}
  */
 proto.buildsafe.v1.GetProjectRequest.prototype.getProjectId = function() {
@@ -980,7 +980,7 @@ proto.buildsafe.v1.Project.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setProjectId(value);
       break;
     case 3:
@@ -1018,7 +1018,7 @@ proto.buildsafe.v1.Project.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getProjectId();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -1034,7 +1034,7 @@ proto.buildsafe.v1.Project.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional int64 project_id = 1;
+ * optional uint64 project_id = 1;
  * @return {number}
  */
 proto.buildsafe.v1.Project.prototype.getProjectId = function() {
@@ -1300,7 +1300,7 @@ proto.buildsafe.v1.RenameProjectRequest.deserializeBinaryFromReader = function(m
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setProjectId(value);
       break;
     case 2:
@@ -1338,7 +1338,7 @@ proto.buildsafe.v1.RenameProjectRequest.serializeBinaryToWriter = function(messa
   var f = undefined;
   f = message.getProjectId();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -1354,7 +1354,7 @@ proto.buildsafe.v1.RenameProjectRequest.serializeBinaryToWriter = function(messa
 
 
 /**
- * optional int64 project_id = 1;
+ * optional uint64 project_id = 1;
  * @return {number}
  */
 proto.buildsafe.v1.RenameProjectRequest.prototype.getProjectId = function() {
@@ -1560,7 +1560,7 @@ proto.buildsafe.v1.DeleteProjectRequest.deserializeBinaryFromReader = function(m
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setProjectId(value);
       break;
     default:
@@ -1594,7 +1594,7 @@ proto.buildsafe.v1.DeleteProjectRequest.serializeBinaryToWriter = function(messa
   var f = undefined;
   f = message.getProjectId();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -1603,7 +1603,7 @@ proto.buildsafe.v1.DeleteProjectRequest.serializeBinaryToWriter = function(messa
 
 
 /**
- * optional int64 project_id = 1;
+ * optional uint64 project_id = 1;
  * @return {number}
  */
 proto.buildsafe.v1.DeleteProjectRequest.prototype.getProjectId = function() {
