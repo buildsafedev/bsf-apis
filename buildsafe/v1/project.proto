@@ -55,14 +55,14 @@ message CreateProjectRequest {
 }
 
 message CreateProjectResponse {
-  int64 project_id = 1 [(buf.validate.field).int64 = {
+  uint64 project_id = 1 [(buf.validate.field).uint64 = {
     gt: 0,
     lt: 1000000
   }, (buf.validate.field).required = true];
 }
 
 message GetProjectRequest {
-  int64 project_id = 1 [(buf.validate.field).int64 = {
+  uint64 project_id = 1 [(buf.validate.field).uint64 = {
     gt: 0,
     lt: 1000000
   }, (buf.validate.field).required = true];
@@ -76,9 +76,8 @@ message ListProjectsRequest {
 }
 
 message Project {
-  int64 project_id = 1 [(buf.validate.field).int64 = {
+  uint64 project_id = 1 [(buf.validate.field).uint64 = {
     gt: 0,
-    lt: 1000000
   }, (buf.validate.field).required = true];
 
   string project_name = 3 [(buf.validate.field).string = {
@@ -92,9 +91,8 @@ message ListProjectsResponse {
 }
 
 message RenameProjectRequest {
-  int64 project_id = 1 [(buf.validate.field).int64 = {
+  uint64 project_id = 1 [(buf.validate.field).uint64 = {
     gt: 0,
-    lt: 1000000
   }, (buf.validate.field).required = true];
 
   string project_name = 2 [(buf.validate.field).string = {
@@ -106,9 +104,8 @@ message RenameProjectRequest {
 message RenameProjectResponse {}
 
 message DeleteProjectRequest {
-  int64 project_id = 1 [(buf.validate.field).int64 = {
+  uint64 project_id = 1 [(buf.validate.field).uint64 = {
     gt: 0,
-    lt: 1000000
   }, (buf.validate.field).required = true];
 }
 
