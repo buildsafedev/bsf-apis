@@ -16,7 +16,27 @@
     "application/json"
   ],
   "paths": {
-    "/v1/project": {
+    "/v1/projects": {
+      "get": {
+        "operationId": "ProjectService_ListProjects",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListProjectsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "ProjectService"
+        ]
+      },
       "post": {
         "operationId": "ProjectService_CreateProject",
         "responses": {
@@ -48,7 +68,7 @@
         ]
       }
     },
-    "/v1/project/{project_id}": {
+    "/v1/projects/{project_id}": {
       "get": {
         "operationId": "ProjectService_GetProject",
         "responses": {
@@ -79,46 +99,6 @@
           "ProjectService"
         ]
       },
-      "patch": {
-        "operationId": "ProjectService_UpdateProject",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1UpdateProjectResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "int64",
-            "pattern": "[^/]+"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ProjectServiceUpdateProjectBody"
-            }
-          }
-        ],
-        "tags": [
-          "ProjectService"
-        ]
-      }
-    },
-    "/v1/projects/{project_id}": {
       "delete": {
         "operationId": "ProjectService_DeleteProject",
         "responses": {
@@ -148,16 +128,14 @@
         "tags": [
           "ProjectService"
         ]
-      }
-    },
-    "/v1/projects/{user_id}": {
-      "get": {
-        "operationId": "ProjectService_ListProjects",
+      },
+      "patch": {
+        "operationId": "ProjectService_RenameProject",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1ListProjectsResponse"
+              "$ref": "#/definitions/v1RenameProjectResponse"
             }
           },
           "default": {
@@ -169,12 +147,20 @@
         },
         "parameters": [
           {
-            "name": "user_id",
+            "name": "project_id",
             "in": "path",
             "required": true,
             "type": "string",
             "format": "int64",
             "pattern": "[^/]+"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProjectServiceRenameProjectBody"
+            }
           }
         ],
         "tags": [
@@ -184,11 +170,11 @@
     }
   },
   "definitions": {
-    "ProjectServiceUpdateProjectBody": {
+    "ProjectServiceRenameProjectBody": {
       "type": "object",
       "properties": {
-        "project": {
-          "$ref": "#/definitions/v1Project"
+        "project_name": {
+          "type": "string"
         }
       }
     },
@@ -223,13 +209,19 @@
     "v1CreateProjectRequest": {
       "type": "object",
       "properties": {
-        "project": {
-          "$ref": "#/definitions/v1Project"
+        "project_name": {
+          "type": "string"
         }
       }
     },
     "v1CreateProjectResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
     },
     "v1DeleteProjectResponse": {
       "type": "object"
@@ -261,16 +253,12 @@
           "type": "string",
           "format": "int64"
         },
-        "user_id": {
-          "type": "string",
-          "format": "int64"
-        },
         "project_name": {
           "type": "string"
         }
       }
     },
-    "v1UpdateProjectResponse": {
+    "v1RenameProjectResponse": {
       "type": "object"
     }
   }
