@@ -28,7 +28,7 @@ const (
 	ProjectService_CreateProject_FullMethodName = "/buildsafe.v1.ProjectService/CreateProject"
 	ProjectService_GetProject_FullMethodName    = "/buildsafe.v1.ProjectService/GetProject"
 	ProjectService_ListProjects_FullMethodName  = "/buildsafe.v1.ProjectService/ListProjects"
-	ProjectService_UpdateProject_FullMethodName = "/buildsafe.v1.ProjectService/UpdateProject"
+	ProjectService_RenameProject_FullMethodName = "/buildsafe.v1.ProjectService/RenameProject"
 	ProjectService_DeleteProject_FullMethodName = "/buildsafe.v1.ProjectService/DeleteProject"
 )
 
@@ -39,7 +39,7 @@ type ProjectServiceClient interface {
 	CreateProject(ctx context.Context, in *CreateProjectRequest, opts ...grpc.CallOption) (*CreateProjectResponse, error)
 	GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectResponse, error)
 	ListProjects(ctx context.Context, in *ListProjectsRequest, opts ...grpc.CallOption) (*ListProjectsResponse, error)
-	UpdateProject(ctx context.Context, in *UpdateProjectRequest, opts ...grpc.CallOption) (*UpdateProjectResponse, error)
+	RenameProject(ctx context.Context, in *RenameProjectRequest, opts ...grpc.CallOption) (*RenameProjectResponse, error)
 	DeleteProject(ctx context.Context, in *DeleteProjectRequest, opts ...grpc.CallOption) (*DeleteProjectResponse, error)
 }
 
@@ -81,10 +81,10 @@ func (c *projectServiceClient) ListProjects(ctx context.Context, in *ListProject
 	return out, nil
 }
 
-func (c *projectServiceClient) UpdateProject(ctx context.Context, in *UpdateProjectRequest, opts ...grpc.CallOption) (*UpdateProjectResponse, error) {
+func (c *projectServiceClient) RenameProject(ctx context.Context, in *RenameProjectRequest, opts ...grpc.CallOption) (*RenameProjectResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateProjectResponse)
-	err := c.cc.Invoke(ctx, ProjectService_UpdateProject_FullMethodName, in, out, cOpts...)
+	out := new(RenameProjectResponse)
+	err := c.cc.Invoke(ctx, ProjectService_RenameProject_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -108,7 +108,7 @@ type ProjectServiceServer interface {
 	CreateProject(context.Context, *CreateProjectRequest) (*CreateProjectResponse, error)
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error)
 	ListProjects(context.Context, *ListProjectsRequest) (*ListProjectsResponse, error)
-	UpdateProject(context.Context, *UpdateProjectRequest) (*UpdateProjectResponse, error)
+	RenameProject(context.Context, *RenameProjectRequest) (*RenameProjectResponse, error)
 	DeleteProject(context.Context, *DeleteProjectRequest) (*DeleteProjectResponse, error)
 	mustEmbedUnimplementedProjectServiceServer()
 }
@@ -129,8 +129,8 @@ func (UnimplementedProjectServiceServer) GetProject(context.Context, *GetProject
 func (UnimplementedProjectServiceServer) ListProjects(context.Context, *ListProjectsRequest) (*ListProjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListProjects not implemented")
 }
-func (UnimplementedProjectServiceServer) UpdateProject(context.Context, *UpdateProjectRequest) (*UpdateProjectResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateProject not implemented")
+func (UnimplementedProjectServiceServer) RenameProject(context.Context, *RenameProjectRequest) (*RenameProjectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RenameProject not implemented")
 }
 func (UnimplementedProjectServiceServer) DeleteProject(context.Context, *DeleteProjectRequest) (*DeleteProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProject not implemented")
@@ -210,20 +210,20 @@ func _ProjectService_ListProjects_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProjectService_UpdateProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateProjectRequest)
+func _ProjectService_RenameProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RenameProjectRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProjectServiceServer).UpdateProject(ctx, in)
+		return srv.(ProjectServiceServer).RenameProject(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ProjectService_UpdateProject_FullMethodName,
+		FullMethod: ProjectService_RenameProject_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProjectServiceServer).UpdateProject(ctx, req.(*UpdateProjectRequest))
+		return srv.(ProjectServiceServer).RenameProject(ctx, req.(*RenameProjectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -266,8 +266,8 @@ var ProjectService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ProjectService_ListProjects_Handler,
 		},
 		{
-			MethodName: "UpdateProject",
-			Handler:    _ProjectService_UpdateProject_Handler,
+			MethodName: "RenameProject",
+			Handler:    _ProjectService_RenameProject_Handler,
 		},
 		{
 			MethodName: "DeleteProject",

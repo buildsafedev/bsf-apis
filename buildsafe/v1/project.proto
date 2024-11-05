@@ -16,26 +16,26 @@ option go_package = "github.com/buildsafedev/bsf-apis;bsfv1";
 service ProjectService {
   rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {
     option (google.api.http) = {
-      post: "/v1/project"
+      post: "/v1/projects"
       body: "*"
     };
   }
 
   rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {
     option (google.api.http) = {
-      get: "/v1/project/{project_id=*}"
+      get: "/v1/projects/{project_id=*}"
     };
   }
 
   rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse) {
     option (google.api.http) = {
-      get: "/v1/projects/{user_id=*}"
+      get: "/v1/projects"
     };
   }
 
-  rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse) {
+  rpc RenameProject(RenameProjectRequest) returns (RenameProjectResponse) {
     option (google.api.http) = {
-      patch: "/v1/project/{project_id=*}"
+      patch: "/v1/projects/{project_id=*}"
       body: "*"
     };
   }
@@ -47,28 +47,19 @@ service ProjectService {
   }
 }
 
-message Project {
-  int64 project_id = 1 [(buf.validate.field).int64 = {
-    gt: 0,
-    lt: 1000000
-  }, (buf.validate.field).required = true];
-  
-  int64 user_id = 2 [(buf.validate.field).int64 = {
-    gt: 0,
-    lt: 1000000
-  }, (buf.validate.field).required = true];
-  
-  string project_name = 3 [(buf.validate.field).string = {
+message CreateProjectRequest {
+  string project_name = 1 [(buf.validate.field).string = {
     min_len: 1,
     max_len: 255
   }, (buf.validate.field).required = true];
 }
 
-message CreateProjectRequest {
-  Project project = 1;
+message CreateProjectResponse {
+  int64 project_id = 1 [(buf.validate.field).int64 = {
+    gt: 0,
+    lt: 1000000
+  }, (buf.validate.field).required = true];
 }
-
-message CreateProjectResponse {}
 
 message GetProjectRequest {
   int64 project_id = 1 [(buf.validate.field).int64 = {
@@ -82,9 +73,17 @@ message GetProjectResponse {
 }
 
 message ListProjectsRequest {
-  int64 user_id = 1 [(buf.validate.field).int64 = {
+}
+
+message Project {
+  int64 project_id = 1 [(buf.validate.field).int64 = {
     gt: 0,
     lt: 1000000
+  }, (buf.validate.field).required = true];
+
+  string project_name = 3 [(buf.validate.field).string = {
+    min_len: 1,
+    max_len: 255
   }, (buf.validate.field).required = true];
 }
 
@@ -92,15 +91,19 @@ message ListProjectsResponse {
   repeated Project projects = 1;
 }
 
-message UpdateProjectRequest {
-  Project project = 1;
-  int64 project_id = 2 [(buf.validate.field).int64 = {
+message RenameProjectRequest {
+  int64 project_id = 1 [(buf.validate.field).int64 = {
     gt: 0,
     lt: 1000000
   }, (buf.validate.field).required = true];
+
+  string project_name = 2 [(buf.validate.field).string = {
+    min_len: 1,
+    max_len: 255
+  }, (buf.validate.field).required = true];
 }
 
-message UpdateProjectResponse {}
+message RenameProjectResponse {}
 
 message DeleteProjectRequest {
   int64 project_id = 1 [(buf.validate.field).int64 = {

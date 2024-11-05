@@ -265,61 +265,61 @@ proto.buildsafe.v1.ProjectServicePromiseClient.prototype.listProjects =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.buildsafe.v1.UpdateProjectRequest,
- *   !proto.buildsafe.v1.UpdateProjectResponse>}
+ *   !proto.buildsafe.v1.RenameProjectRequest,
+ *   !proto.buildsafe.v1.RenameProjectResponse>}
  */
-const methodDescriptor_ProjectService_UpdateProject = new grpc.web.MethodDescriptor(
-  '/buildsafe.v1.ProjectService/UpdateProject',
+const methodDescriptor_ProjectService_RenameProject = new grpc.web.MethodDescriptor(
+  '/buildsafe.v1.ProjectService/RenameProject',
   grpc.web.MethodType.UNARY,
-  proto.buildsafe.v1.UpdateProjectRequest,
-  proto.buildsafe.v1.UpdateProjectResponse,
+  proto.buildsafe.v1.RenameProjectRequest,
+  proto.buildsafe.v1.RenameProjectResponse,
   /**
-   * @param {!proto.buildsafe.v1.UpdateProjectRequest} request
+   * @param {!proto.buildsafe.v1.RenameProjectRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.buildsafe.v1.UpdateProjectResponse.deserializeBinary
+  proto.buildsafe.v1.RenameProjectResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.buildsafe.v1.UpdateProjectRequest} request The
+ * @param {!proto.buildsafe.v1.RenameProjectRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.buildsafe.v1.UpdateProjectResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.buildsafe.v1.RenameProjectResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.buildsafe.v1.UpdateProjectResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.buildsafe.v1.RenameProjectResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.buildsafe.v1.ProjectServiceClient.prototype.updateProject =
+proto.buildsafe.v1.ProjectServiceClient.prototype.renameProject =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/buildsafe.v1.ProjectService/UpdateProject',
+      '/buildsafe.v1.ProjectService/RenameProject',
       request,
       metadata || {},
-      methodDescriptor_ProjectService_UpdateProject,
+      methodDescriptor_ProjectService_RenameProject,
       callback);
 };
 
 
 /**
- * @param {!proto.buildsafe.v1.UpdateProjectRequest} request The
+ * @param {!proto.buildsafe.v1.RenameProjectRequest} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.buildsafe.v1.UpdateProjectResponse>}
+ * @return {!Promise<!proto.buildsafe.v1.RenameProjectResponse>}
  *     Promise that resolves to the response
  */
-proto.buildsafe.v1.ProjectServicePromiseClient.prototype.updateProject =
+proto.buildsafe.v1.ProjectServicePromiseClient.prototype.renameProject =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/buildsafe.v1.ProjectService/UpdateProject',
+      '/buildsafe.v1.ProjectService/RenameProject',
       request,
       metadata || {},
-      methodDescriptor_ProjectService_UpdateProject);
+      methodDescriptor_ProjectService_RenameProject);
 };
 
 
