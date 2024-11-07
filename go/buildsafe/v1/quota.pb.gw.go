@@ -35,11 +35,7 @@ func request_QuotaService_ViewQuota_0(ctx context.Context, marshaler runtime.Mar
 	var protoReq ViewQuotaRequest
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -55,7 +51,7 @@ func request_QuotaService_ViewQuota_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "project_id")
 	}
 
-	protoReq.ProjectId, err = runtime.Int64(val)
+	protoReq.ProjectId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "project_id", err)
 	}
@@ -69,11 +65,7 @@ func local_request_QuotaService_ViewQuota_0(ctx context.Context, marshaler runti
 	var protoReq ViewQuotaRequest
 	var metadata runtime.ServerMetadata
 
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
@@ -89,7 +81,7 @@ func local_request_QuotaService_ViewQuota_0(ctx context.Context, marshaler runti
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "project_id")
 	}
 
-	protoReq.ProjectId, err = runtime.Int64(val)
+	protoReq.ProjectId, err = runtime.Uint64(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "project_id", err)
 	}
@@ -103,6 +95,7 @@ func local_request_QuotaService_ViewQuota_0(ctx context.Context, marshaler runti
 // UnaryRPC     :call QuotaServiceServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterQuotaServiceHandlerFromEndpoint instead.
+// GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
 func RegisterQuotaServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server QuotaServiceServer) error {
 
 	mux.Handle("POST", pattern_QuotaService_ViewQuota_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
@@ -136,21 +129,21 @@ func RegisterQuotaServiceHandlerServer(ctx context.Context, mux *runtime.ServeMu
 // RegisterQuotaServiceHandlerFromEndpoint is same as RegisterQuotaServiceHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
 func RegisterQuotaServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
-	conn, err := grpc.Dial(endpoint, opts...)
+	conn, err := grpc.NewClient(endpoint, opts...)
 	if err != nil {
 		return err
 	}
 	defer func() {
 		if err != nil {
 			if cerr := conn.Close(); cerr != nil {
-				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
+				grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
 			}
 			return
 		}
 		go func() {
 			<-ctx.Done()
 			if cerr := conn.Close(); cerr != nil {
-				grpclog.Infof("Failed to close conn to %s: %v", endpoint, cerr)
+				grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
 			}
 		}()
 	}()
@@ -168,7 +161,7 @@ func RegisterQuotaServiceHandler(ctx context.Context, mux *runtime.ServeMux, con
 // to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "QuotaServiceClient".
 // Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "QuotaServiceClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "QuotaServiceClient" to call the correct interceptors.
+// "QuotaServiceClient" to call the correct interceptors. This client ignores the HTTP middlewares.
 func RegisterQuotaServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client QuotaServiceClient) error {
 
 	mux.Handle("POST", pattern_QuotaService_ViewQuota_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {

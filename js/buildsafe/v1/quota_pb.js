@@ -139,7 +139,7 @@ proto.buildsafe.v1.ViewQuotaRequest.deserializeBinaryFromReader = function(msg, 
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt64());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setProjectId(value);
       break;
     default:
@@ -173,7 +173,7 @@ proto.buildsafe.v1.ViewQuotaRequest.serializeBinaryToWriter = function(message, 
   var f = undefined;
   f = message.getProjectId();
   if (f !== 0) {
-    writer.writeInt64(
+    writer.writeUint64(
       1,
       f
     );
@@ -182,7 +182,7 @@ proto.buildsafe.v1.ViewQuotaRequest.serializeBinaryToWriter = function(message, 
 
 
 /**
- * optional int64 project_id = 1;
+ * optional uint64 project_id = 1;
  * @return {number}
  */
 proto.buildsafe.v1.ViewQuotaRequest.prototype.getProjectId = function() {

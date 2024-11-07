@@ -39,15 +39,14 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "format": "int64"
+            "format": "uint64"
           },
           {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "description": "ViewQuotaRequest is the request message for viewing Quota on ViewQuota."
+              "$ref": "#/definitions/QuotaServiceViewQuotaBody"
             }
           }
         ],
@@ -58,6 +57,10 @@
     }
   },
   "definitions": {
+    "QuotaServiceViewQuotaBody": {
+      "type": "object",
+      "description": "ViewQuotaRequest is the request message for viewing Quota on ViewQuota."
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -80,6 +83,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
