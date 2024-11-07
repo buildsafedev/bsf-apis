@@ -25,7 +25,7 @@ service QuotaService {
 
 // ViewQuotaRequest is the request message for viewing Quota on ViewQuota.
 message ViewQuotaRequest {
-  int64 project_id = 1;
+  uint64 project_id = 1;
 }
 
 // ViewQuotaResponse  is a message for the response of ViewQuota.
