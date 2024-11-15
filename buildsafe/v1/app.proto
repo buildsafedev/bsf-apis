@@ -1,0 +1,152 @@
+// (-- api-linter: core::0191::java-package=disabled
+// (-- api-linter: core::0191::java-outer-classname=disabled
+// (-- api-linter: core::0191::java-multiple-files=disabled
+//     aip.dev/not-precedent: We're doing This as this is a Go server --)
+// (-- api-linter: core::0191::proto-package=disabled
+
+syntax = "proto3";
+
+package buildsafe.v1;
+
+import "buf/validate/validate.proto";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/buildsafedev/bsf-apis;bsfv1";
+
+service AppService {
+    rpc RegisterApp(RegisterAppRequest) returns (RegisterAppResponse) {
+        option (google.api.http) = {
+            post: "/v1/apps"
+            body: "*"
+        };
+    }
+
+    rpc GetApp(GetAppRequest) returns (GetAppResponse) {
+        option (google.api.http) = {
+            get: "/v1/apps/{app_id=*}"
+        };
+    }
+
+    rpc ListApps(ListAppsRequest) returns (ListAppsResponse) {
+        option (google.api.http) = {
+            get: "/v1/apps"
+        };
+    }
+
+    rpc UnregisterApp(UnregisterAppRequest) returns (UnregisterAppResponse) {
+        option (google.api.http) = {
+            delete: "/v1/apps/{app_id=*}"
+        };
+    }
+
+    rpc AddAppDetails(AddAppDetailsRequest) returns (AddAppDetailsResponse) {
+        option (google.api.http) = {
+            post: "/v1/apps/{app_id=*}/details"
+            body: "*"
+        };
+    }
+}
+
+message RegisterAppRequest {
+    uint64 project_id = 1 [(buf.validate.field).uint64 = {
+        gt: 0,
+        lt: 1000000
+    }, (buf.validate.field).required = true];
+
+    string repo_name = 2 [(buf.validate.field).string = {
+        min_len: 1,
+        max_len: 255
+    }, (buf.validate.field).required = true];
+
+    string repo_id = 3 [(buf.validate.field).uint64 = {
+        gt: 0,
+        lt: 1000000
+    }, (buf.validate.field).required = true];
+}
+
+message RegisterAppResponse {
+    uint64 app_id = 1 [(buf.validate.field).uint64 = {
+        gt: 0,
+        lt: 1000000
+    }, (buf.validate.field).required = true];
+}
+
+message GetAppRequest {
+    uint64 app_id = 1 [(buf.validate.field).uint64 = {
+        gt: 0,
+        lt: 1000000
+    }, (buf.validate.field).required = true];
+}
+
+message App {
+    uint64 app_id = 1 [(buf.validate.field).uint64 = {
+        gt: 0,
+        lt: 1000000
+    }, (buf.validate.field).required = true];
+
+    uint64 project_id = 2 [(buf.validate.field).uint64 = {
+        gt: 0,
+        lt: 1000000
+    }, (buf.validate.field).required = true];
+
+    string repo_name = 3 [(buf.validate.field).string = {
+        min_len: 1,
+        max_len: 255
+    }, (buf.validate.field).required = true];
+
+    string repo_id = 4 [(buf.validate.field).uint64 = {
+        gt: 0,
+        lt: 1000000
+    }, (buf.validate.field).required = true];
+
+    string branch = 5 [(buf.validate.field).string = {
+        min_len: 1,
+        max_len: 128
+    }, (buf.validate.field).required = true];
+
+    string folder = 6 [(buf.validate.field).string = {
+        min_len: 1,
+        max_len: 255
+    }, (buf.validate.field).required = true];
+}
+
+message GetAppResponse {
+    App app = 1;
+}
+
+message ListAppsRequest {
+}
+
+message ListAppsResponse {
+    repeated App apps = 1;
+}
+
+message UnregisterAppRequest {
+    uint64 app_id = 1 [(buf.validate.field).uint64 = {
+        gt: 0,
+        lt: 1000000
+    }, (buf.validate.field).required = true];
+}
+
+message UnregisterAppResponse {
+}
+
+message AddAppDetailsRequest {
+    uint64 app_id = 1 [(buf.validate.field).uint64 = {
+        gt: 0,
+        lt: 1000000
+    }, (buf.validate.field).required = true];
+
+    string branch = 2 [(buf.validate.field).string = {
+        min_len: 1,
+        max_len: 128
+    }, (buf.validate.field).required = true];
+
+    string folder = 3 [(buf.validate.field).string = {
+        min_len: 1,
+        max_len: 255
+    }, (buf.validate.field).required = true];
+}
+
+message AddAppDetailsResponse {
+}
