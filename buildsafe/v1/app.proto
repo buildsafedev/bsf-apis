@@ -53,11 +53,6 @@ message RegisterAppRequest {
         lt: 1000000
     }, (buf.validate.field).required = true];
 
-    string repo_name = 2 [(buf.validate.field).string = {
-        min_len: 1,
-        max_len: 255
-    }, (buf.validate.field).required = true];
-
     string repo_id = 3 [(buf.validate.field).uint64 = {
         gt: 0,
         lt: 1000000
@@ -87,11 +82,6 @@ message App {
     uint64 project_id = 2 [(buf.validate.field).uint64 = {
         gt: 0,
         lt: 1000000
-    }, (buf.validate.field).required = true];
-
-    string repo_name = 3 [(buf.validate.field).string = {
-        min_len: 1,
-        max_len: 255
     }, (buf.validate.field).required = true];
 
     string repo_id = 4 [(buf.validate.field).uint64 = {
