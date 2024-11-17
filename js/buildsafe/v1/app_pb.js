@@ -300,7 +300,7 @@ proto.buildsafe.v1.RegisterAppRequest.prototype.toObject = function(opt_includeI
 proto.buildsafe.v1.RegisterAppRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     projectId: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    repoId: jspb.Message.getFieldWithDefault(msg, 2, "")
+    repoId: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -342,7 +342,7 @@ proto.buildsafe.v1.RegisterAppRequest.deserializeBinaryFromReader = function(msg
       msg.setProjectId(value);
       break;
     case 2:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setRepoId(value);
       break;
     default:
@@ -382,8 +382,8 @@ proto.buildsafe.v1.RegisterAppRequest.serializeBinaryToWriter = function(message
     );
   }
   f = message.getRepoId();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeUint64(
       2,
       f
     );
@@ -410,20 +410,20 @@ proto.buildsafe.v1.RegisterAppRequest.prototype.setProjectId = function(value) {
 
 
 /**
- * optional string repo_id = 2;
- * @return {string}
+ * optional uint64 repo_id = 2;
+ * @return {number}
  */
 proto.buildsafe.v1.RegisterAppRequest.prototype.getRepoId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /**
- * @param {string} value
+ * @param {number} value
  * @return {!proto.buildsafe.v1.RegisterAppRequest} returns this
  */
 proto.buildsafe.v1.RegisterAppRequest.prototype.setRepoId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 

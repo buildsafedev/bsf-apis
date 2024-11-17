@@ -229,7 +229,8 @@
       "type": "object",
       "properties": {
         "repo_id": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
