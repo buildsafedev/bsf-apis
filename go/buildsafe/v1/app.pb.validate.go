@@ -376,9 +376,13 @@ func (m *App) validate(all bool) error {
 
 	// no validation rules for RepoId
 
-	// no validation rules for Branch
+	if m.Branch != nil {
+		// no validation rules for Branch
+	}
 
-	// no validation rules for Folder
+	if m.Folder != nil {
+		// no validation rules for Folder
+	}
 
 	if len(errors) > 0 {
 		return AppMultiError(errors)

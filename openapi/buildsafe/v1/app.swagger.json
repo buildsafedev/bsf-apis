@@ -276,7 +276,8 @@
           "format": "uint64"
         },
         "repo_id": {
-          "type": "string"
+          "type": "string",
+          "format": "uint64"
         },
         "branch": {
           "type": "string"

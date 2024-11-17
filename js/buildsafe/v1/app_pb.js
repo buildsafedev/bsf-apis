@@ -751,7 +751,7 @@ proto.buildsafe.v1.App.toObject = function(includeInstance, msg) {
   var f, obj = {
     appId: jspb.Message.getFieldWithDefault(msg, 1, 0),
     projectId: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    repoId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    repoId: jspb.Message.getFieldWithDefault(msg, 3, 0),
     branch: jspb.Message.getFieldWithDefault(msg, 4, ""),
     folder: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
@@ -799,7 +799,7 @@ proto.buildsafe.v1.App.deserializeBinaryFromReader = function(msg, reader) {
       msg.setProjectId(value);
       break;
     case 3:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setRepoId(value);
       break;
     case 4:
@@ -854,21 +854,21 @@ proto.buildsafe.v1.App.serializeBinaryToWriter = function(message, writer) {
     );
   }
   f = message.getRepoId();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeUint64(
       3,
       f
     );
   }
-  f = message.getBranch();
-  if (f.length > 0) {
+  f = /** @type {string} */ (jspb.Message.getField(message, 4));
+  if (f != null) {
     writer.writeString(
       4,
       f
     );
   }
-  f = message.getFolder();
-  if (f.length > 0) {
+  f = /** @type {string} */ (jspb.Message.getField(message, 5));
+  if (f != null) {
     writer.writeString(
       5,
       f
@@ -914,20 +914,20 @@ proto.buildsafe.v1.App.prototype.setProjectId = function(value) {
 
 
 /**
- * optional string repo_id = 3;
- * @return {string}
+ * optional uint64 repo_id = 3;
+ * @return {number}
  */
 proto.buildsafe.v1.App.prototype.getRepoId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /**
- * @param {string} value
+ * @param {number} value
  * @return {!proto.buildsafe.v1.App} returns this
  */
 proto.buildsafe.v1.App.prototype.setRepoId = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
+  return jspb.Message.setProto3IntField(this, 3, value);
 };
 
 
@@ -945,7 +945,25 @@ proto.buildsafe.v1.App.prototype.getBranch = function() {
  * @return {!proto.buildsafe.v1.App} returns this
  */
 proto.buildsafe.v1.App.prototype.setBranch = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+  return jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.buildsafe.v1.App} returns this
+ */
+proto.buildsafe.v1.App.prototype.clearBranch = function() {
+  return jspb.Message.setField(this, 4, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.buildsafe.v1.App.prototype.hasBranch = function() {
+  return jspb.Message.getField(this, 4) != null;
 };
 
 
@@ -963,7 +981,25 @@ proto.buildsafe.v1.App.prototype.getFolder = function() {
  * @return {!proto.buildsafe.v1.App} returns this
  */
 proto.buildsafe.v1.App.prototype.setFolder = function(value) {
-  return jspb.Message.setProto3StringField(this, 5, value);
+  return jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * Clears the field making it undefined.
+ * @return {!proto.buildsafe.v1.App} returns this
+ */
+proto.buildsafe.v1.App.prototype.clearFolder = function() {
+  return jspb.Message.setField(this, 5, undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.buildsafe.v1.App.prototype.hasFolder = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 
