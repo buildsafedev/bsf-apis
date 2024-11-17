@@ -267,6 +267,8 @@ func (m *GetAppRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for ProjectId
+
 	// no validation rules for AppId
 
 	if len(errors) > 0 {
@@ -606,6 +608,8 @@ func (m *ListAppsRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for ProjectId
+
 	if len(errors) > 0 {
 		return ListAppsRequestMultiError(errors)
 	}
@@ -840,6 +844,8 @@ func (m *UnregisterAppRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for ProjectId
+
 	// no validation rules for AppId
 
 	if len(errors) > 0 {
@@ -1045,6 +1051,8 @@ func (m *AddAppDetailsRequest) validate(all bool) error {
 	}
 
 	var errors []error
+
+	// no validation rules for ProjectId
 
 	// no validation rules for AppId
 

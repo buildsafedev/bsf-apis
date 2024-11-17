@@ -589,7 +589,8 @@ proto.buildsafe.v1.GetAppRequest.prototype.toObject = function(opt_includeInstan
  */
 proto.buildsafe.v1.GetAppRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    appId: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    projectId: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    appId: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -628,6 +629,10 @@ proto.buildsafe.v1.GetAppRequest.deserializeBinaryFromReader = function(msg, rea
     switch (field) {
     case 1:
       var value = /** @type {number} */ (reader.readUint64());
+      msg.setProjectId(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setAppId(value);
       break;
     default:
@@ -659,10 +664,17 @@ proto.buildsafe.v1.GetAppRequest.prototype.serializeBinary = function() {
  */
 proto.buildsafe.v1.GetAppRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getAppId();
+  f = message.getProjectId();
   if (f !== 0) {
     writer.writeUint64(
       1,
+      f
+    );
+  }
+  f = message.getAppId();
+  if (f !== 0) {
+    writer.writeUint64(
+      2,
       f
     );
   }
@@ -670,10 +682,10 @@ proto.buildsafe.v1.GetAppRequest.serializeBinaryToWriter = function(message, wri
 
 
 /**
- * optional uint64 app_id = 1;
+ * optional uint64 project_id = 1;
  * @return {number}
  */
-proto.buildsafe.v1.GetAppRequest.prototype.getAppId = function() {
+proto.buildsafe.v1.GetAppRequest.prototype.getProjectId = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
@@ -682,8 +694,26 @@ proto.buildsafe.v1.GetAppRequest.prototype.getAppId = function() {
  * @param {number} value
  * @return {!proto.buildsafe.v1.GetAppRequest} returns this
  */
-proto.buildsafe.v1.GetAppRequest.prototype.setAppId = function(value) {
+proto.buildsafe.v1.GetAppRequest.prototype.setProjectId = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional uint64 app_id = 2;
+ * @return {number}
+ */
+proto.buildsafe.v1.GetAppRequest.prototype.getAppId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.buildsafe.v1.GetAppRequest} returns this
+ */
+proto.buildsafe.v1.GetAppRequest.prototype.setAppId = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -1120,7 +1150,7 @@ proto.buildsafe.v1.ListAppsRequest.prototype.toObject = function(opt_includeInst
  */
 proto.buildsafe.v1.ListAppsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-
+    projectId: jspb.Message.getFieldWithDefault(msg, 1, 0)
   };
 
   if (includeInstance) {
@@ -1157,6 +1187,10 @@ proto.buildsafe.v1.ListAppsRequest.deserializeBinaryFromReader = function(msg, r
     }
     var field = reader.getFieldNumber();
     switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setProjectId(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1186,6 +1220,31 @@ proto.buildsafe.v1.ListAppsRequest.prototype.serializeBinary = function() {
  */
 proto.buildsafe.v1.ListAppsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getProjectId();
+  if (f !== 0) {
+    writer.writeUint64(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint64 project_id = 1;
+ * @return {number}
+ */
+proto.buildsafe.v1.ListAppsRequest.prototype.getProjectId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.buildsafe.v1.ListAppsRequest} returns this
+ */
+proto.buildsafe.v1.ListAppsRequest.prototype.setProjectId = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
@@ -1381,7 +1440,8 @@ proto.buildsafe.v1.UnregisterAppRequest.prototype.toObject = function(opt_includ
  */
 proto.buildsafe.v1.UnregisterAppRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    appId: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    projectId: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    appId: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -1420,6 +1480,10 @@ proto.buildsafe.v1.UnregisterAppRequest.deserializeBinaryFromReader = function(m
     switch (field) {
     case 1:
       var value = /** @type {number} */ (reader.readUint64());
+      msg.setProjectId(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setAppId(value);
       break;
     default:
@@ -1451,10 +1515,17 @@ proto.buildsafe.v1.UnregisterAppRequest.prototype.serializeBinary = function() {
  */
 proto.buildsafe.v1.UnregisterAppRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getAppId();
+  f = message.getProjectId();
   if (f !== 0) {
     writer.writeUint64(
       1,
+      f
+    );
+  }
+  f = message.getAppId();
+  if (f !== 0) {
+    writer.writeUint64(
+      2,
       f
     );
   }
@@ -1462,10 +1533,10 @@ proto.buildsafe.v1.UnregisterAppRequest.serializeBinaryToWriter = function(messa
 
 
 /**
- * optional uint64 app_id = 1;
+ * optional uint64 project_id = 1;
  * @return {number}
  */
-proto.buildsafe.v1.UnregisterAppRequest.prototype.getAppId = function() {
+proto.buildsafe.v1.UnregisterAppRequest.prototype.getProjectId = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
@@ -1474,8 +1545,26 @@ proto.buildsafe.v1.UnregisterAppRequest.prototype.getAppId = function() {
  * @param {number} value
  * @return {!proto.buildsafe.v1.UnregisterAppRequest} returns this
  */
-proto.buildsafe.v1.UnregisterAppRequest.prototype.setAppId = function(value) {
+proto.buildsafe.v1.UnregisterAppRequest.prototype.setProjectId = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional uint64 app_id = 2;
+ * @return {number}
+ */
+proto.buildsafe.v1.UnregisterAppRequest.prototype.getAppId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.buildsafe.v1.UnregisterAppRequest} returns this
+ */
+proto.buildsafe.v1.UnregisterAppRequest.prototype.setAppId = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
@@ -1612,9 +1701,10 @@ proto.buildsafe.v1.AddAppDetailsRequest.prototype.toObject = function(opt_includ
  */
 proto.buildsafe.v1.AddAppDetailsRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    appId: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    branch: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    folder: jspb.Message.getFieldWithDefault(msg, 3, "")
+    projectId: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    appId: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    branch: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    folder: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -1653,13 +1743,17 @@ proto.buildsafe.v1.AddAppDetailsRequest.deserializeBinaryFromReader = function(m
     switch (field) {
     case 1:
       var value = /** @type {number} */ (reader.readUint64());
-      msg.setAppId(value);
+      msg.setProjectId(value);
       break;
     case 2:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setAppId(value);
+      break;
+    case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setBranch(value);
       break;
-    case 3:
+    case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setFolder(value);
       break;
@@ -1692,24 +1786,31 @@ proto.buildsafe.v1.AddAppDetailsRequest.prototype.serializeBinary = function() {
  */
 proto.buildsafe.v1.AddAppDetailsRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getAppId();
+  f = message.getProjectId();
   if (f !== 0) {
     writer.writeUint64(
       1,
       f
     );
   }
+  f = message.getAppId();
+  if (f !== 0) {
+    writer.writeUint64(
+      2,
+      f
+    );
+  }
   f = message.getBranch();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      3,
       f
     );
   }
   f = message.getFolder();
   if (f.length > 0) {
     writer.writeString(
-      3,
+      4,
       f
     );
   }
@@ -1717,10 +1818,10 @@ proto.buildsafe.v1.AddAppDetailsRequest.serializeBinaryToWriter = function(messa
 
 
 /**
- * optional uint64 app_id = 1;
+ * optional uint64 project_id = 1;
  * @return {number}
  */
-proto.buildsafe.v1.AddAppDetailsRequest.prototype.getAppId = function() {
+proto.buildsafe.v1.AddAppDetailsRequest.prototype.getProjectId = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
@@ -1729,34 +1830,34 @@ proto.buildsafe.v1.AddAppDetailsRequest.prototype.getAppId = function() {
  * @param {number} value
  * @return {!proto.buildsafe.v1.AddAppDetailsRequest} returns this
  */
-proto.buildsafe.v1.AddAppDetailsRequest.prototype.setAppId = function(value) {
+proto.buildsafe.v1.AddAppDetailsRequest.prototype.setProjectId = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 
 /**
- * optional string branch = 2;
+ * optional uint64 app_id = 2;
+ * @return {number}
+ */
+proto.buildsafe.v1.AddAppDetailsRequest.prototype.getAppId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.buildsafe.v1.AddAppDetailsRequest} returns this
+ */
+proto.buildsafe.v1.AddAppDetailsRequest.prototype.setAppId = function(value) {
+  return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional string branch = 3;
  * @return {string}
  */
 proto.buildsafe.v1.AddAppDetailsRequest.prototype.getBranch = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.buildsafe.v1.AddAppDetailsRequest} returns this
- */
-proto.buildsafe.v1.AddAppDetailsRequest.prototype.setBranch = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-/**
- * optional string folder = 3;
- * @return {string}
- */
-proto.buildsafe.v1.AddAppDetailsRequest.prototype.getFolder = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
@@ -1765,8 +1866,26 @@ proto.buildsafe.v1.AddAppDetailsRequest.prototype.getFolder = function() {
  * @param {string} value
  * @return {!proto.buildsafe.v1.AddAppDetailsRequest} returns this
  */
-proto.buildsafe.v1.AddAppDetailsRequest.prototype.setFolder = function(value) {
+proto.buildsafe.v1.AddAppDetailsRequest.prototype.setBranch = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional string folder = 4;
+ * @return {string}
+ */
+proto.buildsafe.v1.AddAppDetailsRequest.prototype.getFolder = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.buildsafe.v1.AddAppDetailsRequest} returns this
+ */
+proto.buildsafe.v1.AddAppDetailsRequest.prototype.setFolder = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
