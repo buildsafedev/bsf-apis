@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/v1/apps": {
+    "/v1/apps/{project_id}": {
       "get": {
         "operationId": "AppService_ListApps",
         "responses": {
@@ -33,6 +33,16 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64",
+            "pattern": "[^/]+"
+          }
+        ],
         "tags": [
           "AppService"
         ]
@@ -55,11 +65,19 @@
         },
         "parameters": [
           {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64",
+            "pattern": "[^/]+"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1RegisterAppRequest"
+              "$ref": "#/definitions/AppServiceRegisterAppBody"
             }
           }
         ],
@@ -68,7 +86,7 @@
         ]
       }
     },
-    "/v1/apps/{app_id}": {
+    "/v1/apps/{project_id}/{app_id}": {
       "get": {
         "operationId": "AppService_GetApp",
         "responses": {
@@ -86,6 +104,14 @@
           }
         },
         "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64",
+            "pattern": "[^/]+"
+          },
           {
             "name": "app_id",
             "in": "path",
@@ -117,6 +143,14 @@
         },
         "parameters": [
           {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64",
+            "pattern": "[^/]+"
+          },
+          {
             "name": "app_id",
             "in": "path",
             "required": true,
@@ -130,7 +164,7 @@
         ]
       }
     },
-    "/v1/apps/{app_id}/details": {
+    "/v1/apps/{project_id}/{app_id}/details": {
       "post": {
         "operationId": "AppService_AddAppDetails",
         "responses": {
@@ -148,6 +182,14 @@
           }
         },
         "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uint64",
+            "pattern": "[^/]+"
+          },
           {
             "name": "app_id",
             "in": "path",
@@ -179,6 +221,14 @@
           "type": "string"
         },
         "folder": {
+          "type": "string"
+        }
+      }
+    },
+    "AppServiceRegisterAppBody": {
+      "type": "object",
+      "properties": {
+        "repo_id": {
           "type": "string"
         }
       }
@@ -253,18 +303,6 @@
             "type": "object",
             "$ref": "#/definitions/v1App"
           }
-        }
-      }
-    },
-    "v1RegisterAppRequest": {
-      "type": "object",
-      "properties": {
-        "project_id": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "repo_id": {
-          "type": "string"
         }
       }
     },
