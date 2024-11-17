@@ -59,8 +59,6 @@ func (m *RegisterAppRequest) validate(all bool) error {
 
 	// no validation rules for ProjectId
 
-	// no validation rules for RepoName
-
 	// no validation rules for RepoId
 
 	if len(errors) > 0 {
@@ -373,8 +371,6 @@ func (m *App) validate(all bool) error {
 	// no validation rules for AppId
 
 	// no validation rules for ProjectId
-
-	// no validation rules for RepoName
 
 	// no validation rules for RepoId
 

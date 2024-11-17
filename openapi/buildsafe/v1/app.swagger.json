@@ -225,9 +225,6 @@
           "type": "string",
           "format": "uint64"
         },
-        "repo_name": {
-          "type": "string"
-        },
         "repo_id": {
           "type": "string"
         },
@@ -265,9 +262,6 @@
         "project_id": {
           "type": "string",
           "format": "uint64"
-        },
-        "repo_name": {
-          "type": "string"
         },
         "repo_id": {
           "type": "string"

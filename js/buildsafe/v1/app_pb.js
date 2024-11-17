@@ -300,7 +300,6 @@ proto.buildsafe.v1.RegisterAppRequest.prototype.toObject = function(opt_includeI
 proto.buildsafe.v1.RegisterAppRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     projectId: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    repoName: jspb.Message.getFieldWithDefault(msg, 2, ""),
     repoId: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
@@ -342,10 +341,6 @@ proto.buildsafe.v1.RegisterAppRequest.deserializeBinaryFromReader = function(msg
       var value = /** @type {number} */ (reader.readUint64());
       msg.setProjectId(value);
       break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setRepoName(value);
-      break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setRepoId(value);
@@ -386,13 +381,6 @@ proto.buildsafe.v1.RegisterAppRequest.serializeBinaryToWriter = function(message
       f
     );
   }
-  f = message.getRepoName();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
   f = message.getRepoId();
   if (f.length > 0) {
     writer.writeString(
@@ -418,24 +406,6 @@ proto.buildsafe.v1.RegisterAppRequest.prototype.getProjectId = function() {
  */
 proto.buildsafe.v1.RegisterAppRequest.prototype.setProjectId = function(value) {
   return jspb.Message.setProto3IntField(this, 1, value);
-};
-
-
-/**
- * optional string repo_name = 2;
- * @return {string}
- */
-proto.buildsafe.v1.RegisterAppRequest.prototype.getRepoName = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.buildsafe.v1.RegisterAppRequest} returns this
- */
-proto.buildsafe.v1.RegisterAppRequest.prototype.setRepoName = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -751,7 +721,6 @@ proto.buildsafe.v1.App.toObject = function(includeInstance, msg) {
   var f, obj = {
     appId: jspb.Message.getFieldWithDefault(msg, 1, 0),
     projectId: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    repoName: jspb.Message.getFieldWithDefault(msg, 3, ""),
     repoId: jspb.Message.getFieldWithDefault(msg, 4, ""),
     branch: jspb.Message.getFieldWithDefault(msg, 5, ""),
     folder: jspb.Message.getFieldWithDefault(msg, 6, "")
@@ -798,10 +767,6 @@ proto.buildsafe.v1.App.deserializeBinaryFromReader = function(msg, reader) {
     case 2:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setProjectId(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setRepoName(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
@@ -855,13 +820,6 @@ proto.buildsafe.v1.App.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0) {
     writer.writeUint64(
       2,
-      f
-    );
-  }
-  f = message.getRepoName();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
       f
     );
   }
@@ -922,24 +880,6 @@ proto.buildsafe.v1.App.prototype.getProjectId = function() {
  */
 proto.buildsafe.v1.App.prototype.setProjectId = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
-};
-
-
-/**
- * optional string repo_name = 3;
- * @return {string}
- */
-proto.buildsafe.v1.App.prototype.getRepoName = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.buildsafe.v1.App} returns this
- */
-proto.buildsafe.v1.App.prototype.setRepoName = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
