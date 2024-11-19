@@ -19,7 +19,7 @@ service BotInstallationService{
     rpc ListRepositories(ListRepositoriesRequest) returns (ListRepositoriesResponse) {
         option (google.api.http) = {
             post: "/v1/repositories",
-            body: "*"x``
+            body: "*"
         };
     }
 }
