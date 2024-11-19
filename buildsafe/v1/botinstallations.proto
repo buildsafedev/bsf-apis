@@ -1,0 +1,43 @@
+// (-- api-linter: core::0191::java-package=disabled
+// (-- api-linter: core::0191::java-outer-classname=disabled
+// (-- api-linter: core::0191::java-multiple-files=disabled
+//     aip.dev/not-precedent: We're doing This as this is a Go server --)
+// (-- api-linter: core::0191::proto-package=disabled
+
+syntax = "proto3";
+
+package buildsafe.v1;
+
+import "buf/validate/validate.proto";
+import "google/api/annotations.proto";
+
+
+option go_package = "github.com/buildsafedev/bsf-apis;bsfv1";
+
+
+service BotInstallationService{
+    rpc ListRepositories(ListRepositoriesRequest) returns (ListRepositoriesResponse) {
+        option (google.api.http) = {
+            post: "/v1/repositories",
+            body: "*"x``
+        };
+    }
+}
+
+
+message ListRepositoriesRequest {
+    uint64 installation_id = 1 [(buf.validate.field).uint64 = {
+        gt: 0,
+    }, (buf.validate.field).required = true];
+}
+
+
+message ListRepositoriesResponse {
+    repeated Repository repositories = 1;
+}
+
+message Repository {
+    uint64 id = 1;
+    string name = 2 ;
+    string url = 3 ;
+}
