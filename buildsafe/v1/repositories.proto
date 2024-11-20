@@ -15,8 +15,16 @@ import "google/api/annotations.proto";
 option go_package = "github.com/buildsafedev/bsf-apis;bsfv1";
 
 
-service BotInstallationService{
+service RepositoryService {
     rpc ListRepositories(ListRepositoriesRequest) returns (ListRepositoriesResponse) {
+        option (google.api.http) = {
+            post: "/v1/repositories/list",
+            body: "*"
+        };
+    }
+
+
+    rpc CreateRepository(CreateRepositoryRequest) returns (CreateRepositoryResponse) {
         option (google.api.http) = {
             post: "/v1/repositories",
             body: "*"
@@ -40,4 +48,15 @@ message Repository {
     uint64 id = 1;
     string name = 2 ;
     string url = 3 ;
+}
+
+
+message CreateRepositoryRequest {
+    uint64 installation_id = 1;
+    string name = 2;
+    string url = 3;
+}
+
+
+message CreateRepositoryResponse {
 }
