@@ -8,7 +8,7 @@
 // versions:
 // 	protoc-gen-grpc-web v1.5.0
 // 	protoc              v0.0.0
-// source: buildsafe/v1/botinstallations.proto
+// source: buildsafe/v1/repositories.proto
 
 
 /* eslint-disable */
@@ -25,7 +25,7 @@ var buf_validate_validate_pb = require('../../buf/validate/validate_pb.js')
 var google_api_annotations_pb = require('../../google/api/annotations_pb.js')
 const proto = {};
 proto.buildsafe = {};
-proto.buildsafe.v1 = require('./botinstallations_pb.js');
+proto.buildsafe.v1 = require('./repositories_pb.js');
 
 /**
  * @param {string} hostname
@@ -35,7 +35,7 @@ proto.buildsafe.v1 = require('./botinstallations_pb.js');
  * @struct
  * @final
  */
-proto.buildsafe.v1.BotInstallationServiceClient =
+proto.buildsafe.v1.RepositoryServiceClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options.format = 'binary';
@@ -61,7 +61,7 @@ proto.buildsafe.v1.BotInstallationServiceClient =
  * @struct
  * @final
  */
-proto.buildsafe.v1.BotInstallationServicePromiseClient =
+proto.buildsafe.v1.RepositoryServicePromiseClient =
     function(hostname, credentials, options) {
   if (!options) options = {};
   options.format = 'binary';
@@ -85,8 +85,8 @@ proto.buildsafe.v1.BotInstallationServicePromiseClient =
  *   !proto.buildsafe.v1.ListRepositoriesRequest,
  *   !proto.buildsafe.v1.ListRepositoriesResponse>}
  */
-const methodDescriptor_BotInstallationService_ListRepositories = new grpc.web.MethodDescriptor(
-  '/buildsafe.v1.BotInstallationService/ListRepositories',
+const methodDescriptor_RepositoryService_ListRepositories = new grpc.web.MethodDescriptor(
+  '/buildsafe.v1.RepositoryService/ListRepositories',
   grpc.web.MethodType.UNARY,
   proto.buildsafe.v1.ListRepositoriesRequest,
   proto.buildsafe.v1.ListRepositoriesResponse,
@@ -111,13 +111,13 @@ const methodDescriptor_BotInstallationService_ListRepositories = new grpc.web.Me
  * @return {!grpc.web.ClientReadableStream<!proto.buildsafe.v1.ListRepositoriesResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.buildsafe.v1.BotInstallationServiceClient.prototype.listRepositories =
+proto.buildsafe.v1.RepositoryServiceClient.prototype.listRepositories =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/buildsafe.v1.BotInstallationService/ListRepositories',
+      '/buildsafe.v1.RepositoryService/ListRepositories',
       request,
       metadata || {},
-      methodDescriptor_BotInstallationService_ListRepositories,
+      methodDescriptor_RepositoryService_ListRepositories,
       callback);
 };
 
@@ -130,13 +130,74 @@ proto.buildsafe.v1.BotInstallationServiceClient.prototype.listRepositories =
  * @return {!Promise<!proto.buildsafe.v1.ListRepositoriesResponse>}
  *     Promise that resolves to the response
  */
-proto.buildsafe.v1.BotInstallationServicePromiseClient.prototype.listRepositories =
+proto.buildsafe.v1.RepositoryServicePromiseClient.prototype.listRepositories =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/buildsafe.v1.BotInstallationService/ListRepositories',
+      '/buildsafe.v1.RepositoryService/ListRepositories',
       request,
       metadata || {},
-      methodDescriptor_BotInstallationService_ListRepositories);
+      methodDescriptor_RepositoryService_ListRepositories);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.buildsafe.v1.CreateRepositoryRequest,
+ *   !proto.buildsafe.v1.CreateRepositoryResponse>}
+ */
+const methodDescriptor_RepositoryService_CreateRepository = new grpc.web.MethodDescriptor(
+  '/buildsafe.v1.RepositoryService/CreateRepository',
+  grpc.web.MethodType.UNARY,
+  proto.buildsafe.v1.CreateRepositoryRequest,
+  proto.buildsafe.v1.CreateRepositoryResponse,
+  /**
+   * @param {!proto.buildsafe.v1.CreateRepositoryRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.buildsafe.v1.CreateRepositoryResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.buildsafe.v1.CreateRepositoryRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.buildsafe.v1.CreateRepositoryResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.buildsafe.v1.CreateRepositoryResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.buildsafe.v1.RepositoryServiceClient.prototype.createRepository =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/buildsafe.v1.RepositoryService/CreateRepository',
+      request,
+      metadata || {},
+      methodDescriptor_RepositoryService_CreateRepository,
+      callback);
+};
+
+
+/**
+ * @param {!proto.buildsafe.v1.CreateRepositoryRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.buildsafe.v1.CreateRepositoryResponse>}
+ *     Promise that resolves to the response
+ */
+proto.buildsafe.v1.RepositoryServicePromiseClient.prototype.createRepository =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/buildsafe.v1.RepositoryService/CreateRepository',
+      request,
+      metadata || {},
+      methodDescriptor_RepositoryService_CreateRepository);
 };
 
 
