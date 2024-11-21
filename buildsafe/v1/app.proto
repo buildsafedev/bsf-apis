@@ -53,9 +53,11 @@ message RegisterAppRequest {
         lt: 1000000
     }, (buf.validate.field).required = true];
 
-    uint64 repo_id = 2 [(buf.validate.field).uint64 = {
-        gt: 0,
-        lt: 1000000
+    uint64 repo_id = 2;
+
+    string name = 3 [(buf.validate.field).string = {
+        min_len: 1,
+        max_len: 128
     }, (buf.validate.field).required = true];
 }
 
@@ -89,13 +91,11 @@ message App {
         lt: 1000000
     }, (buf.validate.field).required = true];
 
-    uint64 repo_id = 3 [(buf.validate.field).uint64 = {
-        gt: 0,
-        lt: 1000000
-    }, (buf.validate.field).required = true];
+    uint64 repo_id = 3 ;
 
     optional string branch = 4;
     optional string folder = 5;
+    optional string name = 6;
 }
 
 message GetAppResponse {

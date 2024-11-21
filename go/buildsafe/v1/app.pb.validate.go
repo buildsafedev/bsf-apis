@@ -61,6 +61,8 @@ func (m *RegisterAppRequest) validate(all bool) error {
 
 	// no validation rules for RepoId
 
+	// no validation rules for Name
+
 	if len(errors) > 0 {
 		return RegisterAppRequestMultiError(errors)
 	}
@@ -382,6 +384,10 @@ func (m *App) validate(all bool) error {
 
 	if m.Folder != nil {
 		// no validation rules for Folder
+	}
+
+	if m.Name != nil {
+		// no validation rules for Name
 	}
 
 	if len(errors) > 0 {

@@ -231,6 +231,9 @@
         "repo_id": {
           "type": "string",
           "format": "uint64"
+        },
+        "name": {
+          "type": "string"
         }
       }
     },
@@ -284,6 +287,9 @@
           "type": "string"
         },
         "folder": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
