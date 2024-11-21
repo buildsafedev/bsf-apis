@@ -26,7 +26,6 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	RepositoryService_ListRepositories_FullMethodName = "/buildsafe.v1.RepositoryService/ListRepositories"
-	RepositoryService_CreateRepository_FullMethodName = "/buildsafe.v1.RepositoryService/CreateRepository"
 )
 
 // RepositoryServiceClient is the client API for RepositoryService service.
@@ -34,7 +33,6 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RepositoryServiceClient interface {
 	ListRepositories(ctx context.Context, in *ListRepositoriesRequest, opts ...grpc.CallOption) (*ListRepositoriesResponse, error)
-	CreateRepository(ctx context.Context, in *CreateRepositoryRequest, opts ...grpc.CallOption) (*CreateRepositoryResponse, error)
 }
 
 type repositoryServiceClient struct {
@@ -55,22 +53,11 @@ func (c *repositoryServiceClient) ListRepositories(ctx context.Context, in *List
 	return out, nil
 }
 
-func (c *repositoryServiceClient) CreateRepository(ctx context.Context, in *CreateRepositoryRequest, opts ...grpc.CallOption) (*CreateRepositoryResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CreateRepositoryResponse)
-	err := c.cc.Invoke(ctx, RepositoryService_CreateRepository_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // RepositoryServiceServer is the server API for RepositoryService service.
 // All implementations must embed UnimplementedRepositoryServiceServer
 // for forward compatibility.
 type RepositoryServiceServer interface {
 	ListRepositories(context.Context, *ListRepositoriesRequest) (*ListRepositoriesResponse, error)
-	CreateRepository(context.Context, *CreateRepositoryRequest) (*CreateRepositoryResponse, error)
 	mustEmbedUnimplementedRepositoryServiceServer()
 }
 
@@ -83,9 +70,6 @@ type UnimplementedRepositoryServiceServer struct{}
 
 func (UnimplementedRepositoryServiceServer) ListRepositories(context.Context, *ListRepositoriesRequest) (*ListRepositoriesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRepositories not implemented")
-}
-func (UnimplementedRepositoryServiceServer) CreateRepository(context.Context, *CreateRepositoryRequest) (*CreateRepositoryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateRepository not implemented")
 }
 func (UnimplementedRepositoryServiceServer) mustEmbedUnimplementedRepositoryServiceServer() {}
 func (UnimplementedRepositoryServiceServer) testEmbeddedByValue()                           {}
@@ -126,24 +110,6 @@ func _RepositoryService_ListRepositories_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RepositoryService_CreateRepository_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRepositoryRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RepositoryServiceServer).CreateRepository(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: RepositoryService_CreateRepository_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RepositoryServiceServer).CreateRepository(ctx, req.(*CreateRepositoryRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // RepositoryService_ServiceDesc is the grpc.ServiceDesc for RepositoryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -154,10 +120,6 @@ var RepositoryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListRepositories",
 			Handler:    _RepositoryService_ListRepositories_Handler,
-		},
-		{
-			MethodName: "CreateRepository",
-			Handler:    _RepositoryService_CreateRepository_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

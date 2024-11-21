@@ -16,38 +16,6 @@
     "application/json"
   ],
   "paths": {
-    "/v1/repositories": {
-      "post": {
-        "operationId": "RepositoryService_CreateRepository",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/v1CreateRepositoryResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/v1CreateRepositoryRequest"
-            }
-          }
-        ],
-        "tags": [
-          "RepositoryService"
-        ]
-      }
-    },
     "/v1/repositories/list": {
       "post": {
         "operationId": "RepositoryService_ListRepositories",
@@ -109,24 +77,6 @@
           }
         }
       }
-    },
-    "v1CreateRepositoryRequest": {
-      "type": "object",
-      "properties": {
-        "installation_id": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        }
-      }
-    },
-    "v1CreateRepositoryResponse": {
-      "type": "object"
     },
     "v1ListRepositoriesRequest": {
       "type": "object",
