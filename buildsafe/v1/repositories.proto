@@ -23,13 +23,6 @@ service RepositoryService {
         };
     }
 
-
-    rpc CreateRepository(CreateRepositoryRequest) returns (CreateRepositoryResponse) {
-        option (google.api.http) = {
-            post: "/v1/repositories",
-            body: "*"
-        };
-    }
 }
 
 
@@ -51,12 +44,3 @@ message Repository {
 }
 
 
-message CreateRepositoryRequest {
-    uint64 installation_id = 1;
-    string name = 2;
-    string url = 3;
-}
-
-
-message CreateRepositoryResponse {
-}
