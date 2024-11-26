@@ -10,16 +10,33 @@ package buildsafe.v1;
 
 import "buf/validate/validate.proto";
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/api/httpbody.proto";
 
 option go_package = "github.com/buildsafedev/bsf-apis;bsfv1";
 
 // AuthService defines the methods for authenticating users
 service AuthService {
   // Authenticate a user with an OAuth provider token
+  // Endpoint verifies against the OAuth provider and returns a token. It signs up the user if they don't exist.
   rpc OAuthAuthenticate(OAuthAuthenticateRequest) returns (OAuthAuthenticateResponse) {
     option (google.api.http) = {
       post: "/v1/users/oauth/authenticate",
       body: "*"
+    };
+  }
+
+
+  // Identity returns the identity of the authenticated user
+  rpc Identity(IdentityRequest) returns (IdentityResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/identity"
+    };
+  }
+
+  rpc JWKS(google.protobuf.Empty) returns (google.api.HttpBody) {
+    option (google.api.http) = {
+      get: "/.well-known/jwks.json"
     };
   }
 }
@@ -31,10 +48,21 @@ message OAuthAuthenticateRequest {
 
 // Response message for OAuth-based authentication
 message OAuthAuthenticateResponse {
-  string user_id = 1; // The ID of the authenticated or created user
+  string token = 1 ; // The authentication token
 }
 
 enum Provider {
   PROVIDER_UNSPECIFIED = 0;
   PROVIDER_GITHUB = 1;
+}
+
+
+
+message IdentityRequest {
+}
+
+message IdentityResponse {
+  string email = 1;
+  string name = 2;
+  uint64 user_id = 3;
 }

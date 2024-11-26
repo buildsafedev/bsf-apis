@@ -23,6 +23,10 @@ grpc.web = require('grpc-web');
 var buf_validate_validate_pb = require('../../buf/validate/validate_pb.js')
 
 var google_api_annotations_pb = require('../../google/api/annotations_pb.js')
+
+var google_protobuf_empty_pb = require('google-protobuf/google/protobuf/empty_pb.js')
+
+var google_api_httpbody_pb = require('../../google/api/httpbody_pb.js')
 const proto = {};
 proto.buildsafe = {};
 proto.buildsafe.v1 = require('./auth_pb.js');
@@ -137,6 +141,128 @@ proto.buildsafe.v1.AuthServicePromiseClient.prototype.oAuthAuthenticate =
       request,
       metadata || {},
       methodDescriptor_AuthService_OAuthAuthenticate);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.buildsafe.v1.IdentityRequest,
+ *   !proto.buildsafe.v1.IdentityResponse>}
+ */
+const methodDescriptor_AuthService_Identity = new grpc.web.MethodDescriptor(
+  '/buildsafe.v1.AuthService/Identity',
+  grpc.web.MethodType.UNARY,
+  proto.buildsafe.v1.IdentityRequest,
+  proto.buildsafe.v1.IdentityResponse,
+  /**
+   * @param {!proto.buildsafe.v1.IdentityRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.buildsafe.v1.IdentityResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.buildsafe.v1.IdentityRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.buildsafe.v1.IdentityResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.buildsafe.v1.IdentityResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.buildsafe.v1.AuthServiceClient.prototype.identity =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/buildsafe.v1.AuthService/Identity',
+      request,
+      metadata || {},
+      methodDescriptor_AuthService_Identity,
+      callback);
+};
+
+
+/**
+ * @param {!proto.buildsafe.v1.IdentityRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.buildsafe.v1.IdentityResponse>}
+ *     Promise that resolves to the response
+ */
+proto.buildsafe.v1.AuthServicePromiseClient.prototype.identity =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/buildsafe.v1.AuthService/Identity',
+      request,
+      metadata || {},
+      methodDescriptor_AuthService_Identity);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.google.protobuf.Empty,
+ *   !proto.google.api.HttpBody>}
+ */
+const methodDescriptor_AuthService_JWKS = new grpc.web.MethodDescriptor(
+  '/buildsafe.v1.AuthService/JWKS',
+  grpc.web.MethodType.UNARY,
+  google_protobuf_empty_pb.Empty,
+  google_api_httpbody_pb.HttpBody,
+  /**
+   * @param {!proto.google.protobuf.Empty} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  google_api_httpbody_pb.HttpBody.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.google.protobuf.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.google.api.HttpBody)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.google.api.HttpBody>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.buildsafe.v1.AuthServiceClient.prototype.jWKS =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/buildsafe.v1.AuthService/JWKS',
+      request,
+      metadata || {},
+      methodDescriptor_AuthService_JWKS,
+      callback);
+};
+
+
+/**
+ * @param {!proto.google.protobuf.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.google.api.HttpBody>}
+ *     Promise that resolves to the response
+ */
+proto.buildsafe.v1.AuthServicePromiseClient.prototype.jWKS =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/buildsafe.v1.AuthService/JWKS',
+      request,
+      metadata || {},
+      methodDescriptor_AuthService_JWKS);
 };
 
 
