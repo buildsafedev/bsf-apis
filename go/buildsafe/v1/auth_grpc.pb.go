@@ -14,9 +14,11 @@ package bsfv1
 
 import (
 	context "context"
+	httpbody "google.golang.org/genproto/googleapis/api/httpbody"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -26,6 +28,8 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	AuthService_OAuthAuthenticate_FullMethodName = "/buildsafe.v1.AuthService/OAuthAuthenticate"
+	AuthService_Identity_FullMethodName          = "/buildsafe.v1.AuthService/Identity"
+	AuthService_JWKS_FullMethodName              = "/buildsafe.v1.AuthService/JWKS"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -35,7 +39,11 @@ const (
 // AuthService defines the methods for authenticating users
 type AuthServiceClient interface {
 	// Authenticate a user with an OAuth provider token
+	// Endpoint verifies against the OAuth provider and returns a token. It signs up the user if they don't exist.
 	OAuthAuthenticate(ctx context.Context, in *OAuthAuthenticateRequest, opts ...grpc.CallOption) (*OAuthAuthenticateResponse, error)
+	// Identity returns the identity of the authenticated user
+	Identity(ctx context.Context, in *IdentityRequest, opts ...grpc.CallOption) (*IdentityResponse, error)
+	JWKS(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*httpbody.HttpBody, error)
 }
 
 type authServiceClient struct {
@@ -56,6 +64,26 @@ func (c *authServiceClient) OAuthAuthenticate(ctx context.Context, in *OAuthAuth
 	return out, nil
 }
 
+func (c *authServiceClient) Identity(ctx context.Context, in *IdentityRequest, opts ...grpc.CallOption) (*IdentityResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(IdentityResponse)
+	err := c.cc.Invoke(ctx, AuthService_Identity_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) JWKS(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*httpbody.HttpBody, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(httpbody.HttpBody)
+	err := c.cc.Invoke(ctx, AuthService_JWKS_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -63,7 +91,11 @@ func (c *authServiceClient) OAuthAuthenticate(ctx context.Context, in *OAuthAuth
 // AuthService defines the methods for authenticating users
 type AuthServiceServer interface {
 	// Authenticate a user with an OAuth provider token
+	// Endpoint verifies against the OAuth provider and returns a token. It signs up the user if they don't exist.
 	OAuthAuthenticate(context.Context, *OAuthAuthenticateRequest) (*OAuthAuthenticateResponse, error)
+	// Identity returns the identity of the authenticated user
+	Identity(context.Context, *IdentityRequest) (*IdentityResponse, error)
+	JWKS(context.Context, *emptypb.Empty) (*httpbody.HttpBody, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -76,6 +108,12 @@ type UnimplementedAuthServiceServer struct{}
 
 func (UnimplementedAuthServiceServer) OAuthAuthenticate(context.Context, *OAuthAuthenticateRequest) (*OAuthAuthenticateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OAuthAuthenticate not implemented")
+}
+func (UnimplementedAuthServiceServer) Identity(context.Context, *IdentityRequest) (*IdentityResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Identity not implemented")
+}
+func (UnimplementedAuthServiceServer) JWKS(context.Context, *emptypb.Empty) (*httpbody.HttpBody, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method JWKS not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -116,6 +154,42 @@ func _AuthService_OAuthAuthenticate_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_Identity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdentityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).Identity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_Identity_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).Identity(ctx, req.(*IdentityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_JWKS_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).JWKS(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_JWKS_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).JWKS(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -126,6 +200,14 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "OAuthAuthenticate",
 			Handler:    _AuthService_OAuthAuthenticate_Handler,
+		},
+		{
+			MethodName: "Identity",
+			Handler:    _AuthService_Identity_Handler,
+		},
+		{
+			MethodName: "JWKS",
+			Handler:    _AuthService_JWKS_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
